@@ -1,0 +1,273 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const channels = [
+  {
+    label: 'Email',
+    value: 'rodrigo.marchand@gmail.com',
+    href: 'mailto:rodrigo.marchand@gmail.com',
+    desc: 'Para projetos e oportunidades',
+    icon: '✉',
+  },
+  {
+    label: 'LinkedIn',
+    value: '/in/rmarchand',
+    href: 'https://linkedin.com/in/rmarchand',
+    desc: 'Conexão profissional e networking',
+    icon: '◈',
+  },
+  {
+    label: 'GitHub',
+    value: 'github.com/rmarchand',
+    href: 'https://github.com/rmarchand',
+    desc: 'Projetos e código aberto',
+    icon: '⟨/⟩',
+  },
+];
+---
+
+<Layout title="Contato" description="Entre em contato com Rodrigo Marchand para projetos, parcerias e consultorias.">
+  <div style="padding-top: 100px;">
+
+    <section style="padding: 80px 0 40px;">
+      <div class="container">
+        <p class="section-label">Contato</p>
+        <h1 class="section-title" style="font-size: clamp(2rem, 5vw, 3.5rem); max-width: 580px;">
+          Vamos construir<br />algo <span class="accent">juntos.</span>
+        </h1>
+        <p class="section-desc" style="margin-top: 16px;">
+          Estou aberto a projetos, consultorias, parcerias e conversas interessantes.
+          Respondo a todos os contatos.
+        </p>
+      </div>
+    </section>
+
+    <section style="padding: 40px 0 120px;">
+      <div class="container contact-grid">
+
+        <!-- Canais -->
+        <div class="channels">
+          <h2 class="mono" style="font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 24px;">
+            // canais de contato
+          </h2>
+
+          <div class="channels-list">
+            {channels.map(channel => (
+              <a href={channel.href} target="_blank" rel="noopener noreferrer" class="channel-card card">
+                <div class="channel-icon mono accent">{channel.icon}</div>
+                <div class="channel-body">
+                  <p class="channel-label">{channel.label}</p>
+                  <p class="channel-value mono">{channel.value}</p>
+                  <p class="channel-desc">{channel.desc}</p>
+                </div>
+                <span class="channel-arrow">→</span>
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <!-- Formulário -->
+        <div class="form-wrapper">
+          <h2 class="mono" style="font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 24px;">
+            // enviar mensagem
+          </h2>
+
+          <form class="contact-form" id="contact-form" novalidate>
+            <div class="form-group">
+              <label for="name" class="form-label">Nome</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class="form-input"
+                placeholder="Seu nome completo"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="form-input"
+                placeholder="seu@email.com"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="subject" class="form-label">Assunto</label>
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                class="form-input"
+                placeholder="Do que se trata?"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="message" class="form-label">Mensagem</label>
+              <textarea
+                id="message"
+                name="message"
+                class="form-input form-textarea"
+                placeholder="Descreva seu projeto ou ideia..."
+                rows="5"
+                required
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary form-submit">
+              Enviar mensagem →
+            </button>
+
+            <p class="form-note mono">
+              * Este formulário abre seu cliente de email padrão. Ou entre em contato diretamente pelo email acima.
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = (document.getElementById('name') as HTMLInputElement).value;
+    const subject = (document.getElementById('subject') as HTMLInputElement).value;
+    const message = (document.getElementById('message') as HTMLTextAreaElement).value;
+    const mailto = `mailto:rodrigo.marchand@gmail.com?subject=${encodeURIComponent(subject || 'Contato via rmarchand.dev.br')}&body=${encodeURIComponent(`Olá Rodrigo,\n\nMeu nome é ${name}.\n\n${message}`)}`;
+    window.location.href = mailto;
+  });
+</script>
+
+<style>
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .channels-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .channel-card {
+    display: grid;
+    grid-template-columns: 36px 1fr 24px;
+    gap: 16px;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .channel-card:hover .channel-arrow {
+    color: var(--accent);
+    transform: translate(4px, -4px);
+  }
+
+  .channel-icon {
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .channel-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .channel-value {
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+  }
+
+  .channel-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  .channel-arrow {
+    color: var(--text-muted);
+    transition: all var(--transition);
+  }
+
+  /* Form */
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .form-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .form-input {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    transition: all var(--transition);
+    outline: none;
+    width: 100%;
+    resize: vertical;
+  }
+  .form-input::placeholder {
+    color: var(--text-muted);
+  }
+  .form-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-dim);
+    background: var(--bg-card-hover);
+  }
+
+  .form-textarea {
+    min-height: 120px;
+    line-height: 1.6;
+  }
+
+  .form-submit {
+    align-self: flex-start;
+    padding: 13px 28px;
+  }
+
+  .form-note {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 768px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+  }
+</style>

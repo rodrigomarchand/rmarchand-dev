@@ -1,0 +1,223 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const projects = [
+  {
+    title: 'Gestão Portuária Digital',
+    description: 'Sistema de controle e monitoramento de operações portuárias com dashboards em tempo real. Integração de dados de embarque, desembarque e estoque para tomada de decisão ágil.',
+    tags: ['Gestão', 'Logística', 'Dados', 'Dashboards'],
+    status: 'Em desenvolvimento',
+    year: '2025',
+    highlight: true,
+  },
+  {
+    title: 'Análise de Safra RS',
+    description: 'Relatórios analíticos sobre produção de soja e milho no Rio Grande do Sul com dados do CONAB e USDA. Projeções de volume e impacto logístico no Porto de Rio Grande.',
+    tags: ['Agronegócio', 'Análise', 'CONAB', 'Soja', 'Milho'],
+    status: 'Concluído',
+    year: '2024',
+    highlight: false,
+  },
+  {
+    title: 'Automação de Processos Operacionais',
+    description: 'Mapeamento e implementação de automações para reduzir gargalos em fluxos portuários. Redução de retrabalho e melhora de indicadores operacionais.',
+    tags: ['Automação', 'Operações', 'Porto', 'Processos'],
+    status: 'Em andamento',
+    year: '2025',
+    highlight: false,
+  },
+  {
+    title: 'rmarchand.dev.br',
+    description: 'Este próprio site — construído com Astro.js, implantado via Vercel. Marca pessoal, blog e portfólio de projetos.',
+    tags: ['Astro.js', 'Web', 'Vercel', 'Open Source'],
+    status: 'Concluído',
+    year: '2026',
+    highlight: false,
+  },
+];
+---
+
+<Layout title="Projetos" description="Projetos e iniciativas de Rodrigo Marchand na intersecção de logística, agronegócio e tecnologia.">
+  <div style="padding-top: 100px;">
+
+    <section style="padding: 80px 0 60px;">
+      <div class="container">
+        <p class="section-label">Projetos</p>
+        <h1 class="section-title" style="font-size: clamp(2rem, 5vw, 3.5rem); max-width: 600px;">
+          Iniciativas que<br /><span class="accent">geram resultado real.</span>
+        </h1>
+        <p class="section-desc" style="margin-top: 16px;">
+          Uma seleção de projetos profissionais, análises e construções digitais que representam minha visão de trabalho.
+        </p>
+      </div>
+    </section>
+
+    <section style="padding: 0 0 120px;">
+      <div class="container">
+        <div class="projects-list">
+          {projects.map((project, i) => (
+            <div class={`project-item ${project.highlight ? 'featured' : ''}`}>
+              <div class="project-meta">
+                <span class="mono" style="font-size: 0.7rem; color: var(--text-muted);">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                <span class="mono" style="font-size: 0.7rem; color: var(--text-muted);">{project.year}</span>
+              </div>
+
+              <div class="project-body">
+                <div class="project-header-row">
+                  <h2 class="project-name">{project.title}</h2>
+                  <div class="project-status-badge">
+                    <span class={`status-dot ${project.status === 'Concluído' ? 'done' : 'active'}`}></span>
+                    <span class="mono" style="font-size: 0.7rem; color: var(--text-secondary);">{project.status}</span>
+                  </div>
+                </div>
+
+                <p class="project-description">{project.description}</p>
+
+                <div class="project-tags">
+                  {project.tags.map(tag => (
+                    <span class="tag">{tag}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Colaboração -->
+    <section style="padding: 0 0 100px;">
+      <div class="container">
+        <div class="collab-box">
+          <p class="mono accent" style="font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px;">
+            › open to work
+          </p>
+          <h2 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 12px;">
+            Tem um projeto que faz sentido?
+          </h2>
+          <p style="color: var(--text-secondary); margin-bottom: 28px; max-width: 400px;">
+            Estou aberto a consultorias, colaborações e projetos em logística, agronegócio e tecnologia aplicada.
+          </p>
+          <a href="/contato" class="btn btn-primary">Vamos conversar →</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .project-item {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 32px;
+    padding: 36px 0;
+    border-bottom: 1px solid var(--border);
+    transition: all var(--transition);
+  }
+  .project-item:first-child {
+    border-top: 1px solid var(--border);
+  }
+  .project-item:hover {
+    padding-left: 12px;
+  }
+  .project-item.featured {
+    background: var(--accent-dim);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    margin-bottom: 12px;
+    border: 1px solid var(--accent-border);
+    border-bottom: 1px solid var(--accent-border);
+  }
+  .project-item.featured:hover {
+    padding-left: 32px;
+  }
+
+  .project-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 4px;
+  }
+
+  .project-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+
+  .project-name {
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    font-weight: 600;
+    color: var(--text-primary);
+    font-family: var(--font-display);
+  }
+  .featured .project-name {
+    color: var(--accent);
+  }
+
+  .project-status-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .status-dot.active {
+    background: var(--accent);
+    box-shadow: 0 0 6px var(--accent);
+  }
+  .status-dot.done {
+    background: #22c55e;
+  }
+
+  .project-description {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 16px;
+    max-width: 680px;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .collab-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 52px 40px;
+  }
+
+  @media (max-width: 600px) {
+    .project-item {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .project-meta {
+      flex-direction: row;
+      gap: 16px;
+    }
+    .project-item.featured {
+      padding: 24px 20px;
+    }
+  }
+</style>

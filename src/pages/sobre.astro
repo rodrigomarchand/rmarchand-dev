@@ -1,0 +1,213 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const timeline = [
+  {
+    year: '2024 →',
+    role: 'Gerente de Operações',
+    company: 'Setor Portuário',
+    desc: 'Liderança de equipe com 30 colaboradores. Gestão de operações de soja, milho, trigo e cavaco de madeira.',
+  },
+  {
+    year: '2020',
+    role: 'Coordenação Operacional',
+    company: 'Armazém Geral',
+    desc: 'Coordenação de fluxos logísticos, controle de estoque e gestão de processos de armazenagem de grãos.',
+  },
+  {
+    year: '2015',
+    role: 'Analista de Operações',
+    company: 'Porto',
+    desc: 'Análise e melhoria de processos operacionais portuários. Implementação de indicadores de desempenho.',
+  },
+];
+---
+
+<Layout title="Sobre" description="Conheça a trajetória de Rodrigo Marchand — gerente portuário, especialista em agronegócio e entusiasta de tecnologia.">
+  <div style="padding-top: 100px;">
+
+    <!-- Header da página -->
+    <section style="padding: 80px 0 60px;">
+      <div class="container">
+        <p class="section-label">Sobre mim</p>
+        <h1 class="section-title" style="font-size: clamp(2rem, 5vw, 3.5rem); max-width: 700px;">
+          Uma trajetória construída na interseção de<br />
+          <span class="accent">três mundos.</span>
+        </h1>
+      </div>
+    </section>
+
+    <!-- Bio completa -->
+    <section style="padding: 0 0 80px;">
+      <div class="container bio-grid">
+        <div class="bio-text">
+          <p>
+            Sou Rodrigo Marchand, Gerente com atuação no setor portuário e forte expertise em agronegócio —
+            especialmente nos segmentos de soja, milho, trigo e cavaco de madeira. Atualmente lidero uma
+            equipe de 30 pessoas em operações de alta complexidade logística.
+          </p>
+          <p>
+            Minha carreira foi construída na prática: fui aprendendo gestão gerindo, aprendendo logística
+            operando, e aprendendo sobre dados analisando resultados reais. Não sou um teórico — sou alguém
+            que trabalha com volume, prazo e pressão todos os dias.
+          </p>
+          <p>
+            Nos últimos anos, desenvolvi um interesse crescente por tecnologia como alavanca de produtividade.
+            Acredito que profissionais do setor real que entendem de sistemas têm vantagem competitiva enorme
+            — e é essa fronteira que quero habitar.
+          </p>
+        </div>
+
+        <div class="bio-details">
+          <div class="detail-card">
+            <h3 class="mono accent" style="font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px;">
+              // stack profissional
+            </h3>
+            {[
+              ['Localização', 'Rio Grande do Sul, BR'],
+              ['Setor', 'Portuário / Agronegócio'],
+              ['Equipe', '30 colaboradores'],
+              ['Especialidade', 'Grãos · Logística · Gestão'],
+              ['Interesse atual', 'Tecnologia & Automação'],
+            ].map(([key, val]) => (
+              <div class="detail-row">
+                <span class="mono" style="font-size: 0.75rem; color: var(--text-muted);">{key}</span>
+                <span style="font-size: 0.875rem; color: var(--text-primary);">{val}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Timeline -->
+    <section style="padding: 0 0 100px;">
+      <div class="container">
+        <p class="section-label">Trajetória</p>
+        <h2 class="section-title" style="margin-bottom: 52px;">Experiência profissional</h2>
+
+        <div class="timeline">
+          {timeline.map((item, i) => (
+            <div class="timeline-item">
+              <div class="timeline-year mono accent">{item.year}</div>
+              <div class="timeline-connector">
+                <div class="timeline-dot"></div>
+                {i < timeline.length - 1 && <div class="timeline-line"></div>}
+              </div>
+              <div class="timeline-content card">
+                <h3 style="font-size: 1.05rem; font-weight: 600; margin-bottom: 4px;">{item.role}</h3>
+                <p class="mono" style="font-size: 0.75rem; color: var(--accent); margin-bottom: 12px;">{item.company}</p>
+                <p style="font-size: 0.875rem; color: var(--text-secondary); line-height: 1.65;">{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section style="padding: 0 0 100px;">
+      <div class="container" style="text-align: center;">
+        <p style="color: var(--text-secondary); margin-bottom: 28px;">Quer saber mais ou trabalhar junto?</p>
+        <a href="/contato" class="btn btn-primary" style="font-size: 1rem; padding: 14px 36px;">
+          Entre em contato →
+        </a>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .bio-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .bio-text {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+
+  .detail-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+  }
+
+  .detail-row {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .detail-row:last-child {
+    border-bottom: none;
+  }
+
+  /* Timeline */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 100px 40px 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+
+  .timeline-year {
+    font-size: 0.8rem;
+    padding-top: 20px;
+    text-align: right;
+    letter-spacing: 0.05em;
+  }
+
+  .timeline-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 22px;
+  }
+
+  .timeline-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent-glow);
+    flex-shrink: 0;
+  }
+
+  .timeline-line {
+    width: 1px;
+    flex: 1;
+    min-height: 40px;
+    background: linear-gradient(to bottom, var(--accent-border), transparent);
+    margin-top: 6px;
+  }
+
+  .timeline-content {
+    margin-bottom: 24px;
+  }
+
+  @media (max-width: 768px) {
+    .bio-grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .timeline-item {
+      grid-template-columns: 70px 28px 1fr;
+    }
+  }
+</style>

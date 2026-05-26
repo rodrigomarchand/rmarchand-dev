@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="404 — Página não encontrada">
+  <div style="min-height: 80vh; display: flex; align-items: center; justify-content: center; padding-top: 80px;">
+    <div class="container" style="text-align: center;">
+      <p class="mono accent" style="font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 16px;">
+        &gt; erro_404.throw()
+      </p>
+      <h1 style="font-size: clamp(4rem, 12vw, 8rem); font-weight: 700; color: var(--text-muted); line-height: 1; margin-bottom: 24px; font-family: var(--font-mono);">
+        404
+      </h1>
+      <p style="color: var(--text-secondary); margin-bottom: 36px; font-size: 1.1rem;">
+        Esta página não existe ou foi movida.
+      </p>
+      <a href="/" class="btn btn-primary">
+        ← Voltar ao início
+      </a>
+    </div>
+  </div>
+</Layout>

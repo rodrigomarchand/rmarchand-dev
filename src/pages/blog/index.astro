@@ -1,0 +1,192 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const posts = [
+  {
+    slug: '#',
+    title: 'Logística portuária no Brasil: onde estamos e para onde vamos',
+    excerpt: 'Uma análise do estado atual da infraestrutura portuária brasileira e os gargalos que limitam a competitividade do agronegócio na exportação.',
+    date: '2026-05-01',
+    readTime: '8 min',
+    tags: ['Logística', 'Porto', 'Agronegócio'],
+  },
+  {
+    slug: '#',
+    title: 'Safra de soja 2025/26: o que os números do CONAB nos dizem',
+    excerpt: 'Análise detalhada dos dados de produção, armazenagem e perspectivas de exportação da safra de soja do Rio Grande do Sul.',
+    date: '2026-04-18',
+    readTime: '6 min',
+    tags: ['Soja', 'Safra', 'CONAB'],
+  },
+  {
+    slug: '#',
+    title: 'Por que gerentes operacionais precisam entender de dados',
+    excerpt: 'Reflexão sobre como o domínio de análise de dados transforma a qualidade das decisões no dia a dia de uma operação portuária.',
+    date: '2026-03-30',
+    readTime: '5 min',
+    tags: ['Gestão', 'Dados', 'Liderança'],
+  },
+];
+
+function formatDate(str: string) {
+  return new Date(str).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+}
+---
+
+<Layout title="Blog" description="Artigos e análises de Rodrigo Marchand sobre logística portuária, agronegócio e tecnologia aplicada.">
+  <div style="padding-top: 100px;">
+
+    <section style="padding: 80px 0 60px;">
+      <div class="container">
+        <p class="section-label">Blog</p>
+        <h1 class="section-title" style="font-size: clamp(2rem, 5vw, 3.5rem); max-width: 600px;">
+          Ideias, análises<br />e <span class="accent">perspectivas.</span>
+        </h1>
+        <p class="section-desc" style="margin-top: 16px;">
+          Escrevo sobre logística, commodities, gestão e a interseção com tecnologia. Sem filtro corporativo.
+        </p>
+      </div>
+    </section>
+
+    <section style="padding: 0 0 120px;">
+      <div class="container">
+        <div class="posts-list">
+          {posts.map((post) => (
+            <a href={post.slug} class="post-card">
+              <div class="post-meta">
+                <span class="mono post-date">{formatDate(post.date)}</span>
+                <span class="mono post-read">{post.readTime} de leitura</span>
+              </div>
+              <div class="post-body">
+                <h2 class="post-title">{post.title}</h2>
+                <p class="post-excerpt">{post.excerpt}</p>
+                <div class="post-tags">
+                  {post.tags.map(tag => (
+                    <span class="tag">{tag}</span>
+                  ))}
+                </div>
+              </div>
+              <div class="post-arrow">→</div>
+            </a>
+          ))}
+        </div>
+
+        <div class="coming-soon-note">
+          <span class="mono accent" style="font-size: 0.75rem;">// mais artigos em breve</span>
+          <p style="font-size: 0.875rem; color: var(--text-muted); margin-top: 8px;">
+            Novos conteúdos publicados regularmente. Acompanhe pelo LinkedIn.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .post-card {
+    display: grid;
+    grid-template-columns: 180px 1fr 40px;
+    gap: 32px;
+    padding: 36px 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    transition: all var(--transition);
+    align-items: start;
+  }
+  .post-card:first-child {
+    border-top: 1px solid var(--border);
+  }
+  .post-card:hover {
+    padding-left: 12px;
+  }
+  .post-card:hover .post-arrow {
+    color: var(--accent);
+    transform: translate(4px, -4px);
+  }
+  .post-card:hover .post-title {
+    color: var(--accent);
+  }
+
+  .post-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 4px;
+  }
+
+  .post-date {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+
+  .post-read {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+  }
+
+  .post-title {
+    font-size: clamp(1rem, 2.2vw, 1.25rem);
+    font-weight: 600;
+    color: var(--text-primary);
+    font-family: var(--font-display);
+    line-height: 1.3;
+    margin-bottom: 10px;
+    transition: color var(--transition);
+  }
+
+  .post-excerpt {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .post-arrow {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    padding-top: 4px;
+    transition: all var(--transition);
+  }
+
+  .coming-soon-note {
+    margin-top: 52px;
+    padding: 24px 28px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    border-left: 3px solid var(--accent);
+  }
+
+  @media (max-width: 768px) {
+    .post-card {
+      grid-template-columns: 1fr 32px;
+      grid-template-rows: auto auto;
+    }
+    .post-meta {
+      flex-direction: row;
+      gap: 12px;
+      grid-column: 1 / -1;
+      grid-row: 1;
+    }
+    .post-body {
+      grid-column: 1;
+      grid-row: 2;
+    }
+    .post-arrow {
+      grid-column: 2;
+      grid-row: 2;
+    }
+  }
+</style>

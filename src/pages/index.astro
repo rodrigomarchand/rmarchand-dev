@@ -1,0 +1,638 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const projects = [
+  {
+    title: 'Gestão Portuária Digital',
+    description: 'Sistema de controle e monitoramento de operações portuárias com dashboards em tempo real.',
+    tags: ['Gestão', 'Logística', 'Dados'],
+    href: '/projetos',
+    status: 'Em desenvolvimento',
+  },
+  {
+    title: 'Análise de Safra RS',
+    description: 'Relatórios analíticos sobre produção de soja e milho no Rio Grande do Sul com dados do CONAB.',
+    tags: ['Agronegócio', 'Análise', 'Dados'],
+    href: '/projetos',
+    status: 'Concluído',
+  },
+  {
+    title: 'Automação de Processos',
+    description: 'Implementação de automações operacionais para reduzir gargalos em fluxos portuários.',
+    tags: ['Automação', 'Operações', 'Porto'],
+    href: '/projetos',
+    status: 'Em andamento',
+  },
+];
+---
+
+<Layout>
+  <!-- ======= HERO ======= -->
+  <section class="hero" id="home">
+    <div class="container hero-content">
+      <div class="hero-text">
+        <p class="hero-greeting mono animate-fade-up" style="animation-delay: 0.1s">
+          <span class="accent">›_</span> Olá, eu sou
+        </p>
+
+        <h1 class="hero-name animate-fade-up" style="animation-delay: 0.2s">
+          Rodrigo<br />Marchand
+        </h1>
+
+        <div class="hero-roles animate-fade-up" style="animation-delay: 0.35s">
+          <span class="role-static">Especialista em </span>
+          <span class="role-dynamic" id="typewriter"></span>
+          <span class="cursor accent">|</span>
+        </div>
+
+        <p class="hero-bio animate-fade-up" style="animation-delay: 0.5s">
+          Gerente com mais de uma década na intersecção de<br />
+          <strong>logística portuária</strong>, <strong>agronegócio</strong> e <strong>tecnologia</strong>.
+          <br />Transformando operações complexas em processos inteligentes.
+        </p>
+
+        <div class="hero-actions animate-fade-up" style="animation-delay: 0.65s">
+          <a href="/sobre" class="btn btn-primary">
+            Conheça minha trajetória →
+          </a>
+          <a href="/projetos" class="btn btn-outline">
+            Ver projetos
+          </a>
+        </div>
+
+        <div class="hero-stats animate-fade-up" style="animation-delay: 0.8s">
+          <div class="stat">
+            <span class="stat-value accent">10+</span>
+            <span class="stat-label">Anos de experiência</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-value accent">30</span>
+            <span class="stat-label">Pessoas na equipe</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat">
+            <span class="stat-value accent">3</span>
+            <span class="stat-label">Segmentos dominados</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual animate-fade-up" style="animation-delay: 0.4s">
+        <div class="avatar-wrapper">
+          <div class="avatar-placeholder">
+            <span class="mono accent" style="font-size: 3rem; font-weight: 700;">RM</span>
+          </div>
+          <div class="avatar-ring ring-1"></div>
+          <div class="avatar-ring ring-2"></div>
+          <div class="avatar-badge">
+            <span class="mono" style="font-size: 0.65rem; color: var(--accent);">● Disponível para projetos</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-scroll-hint">
+      <span class="mono" style="font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.1em;">SCROLL</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ======= SOBRE (resumo) ======= -->
+  <section class="about-preview" id="sobre">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text">
+          <p class="section-label">Sobre mim</p>
+          <h2 class="section-title">Gestão com visão de sistema, execução com precisão técnica.</h2>
+          <p class="section-desc">
+            Atuo como Gerente no setor portuário, liderando operações de grãos como soja, milho, trigo e cavaco de madeira.
+            Minha abordagem une rigor operacional com estratégia analítica — sempre com foco em pessoas, processos e resultados.
+          </p>
+          <p class="section-desc" style="margin-top: 16px;">
+            Atualmente, construo minha presença técnica na interseção entre operações e tecnologia.
+          </p>
+          <a href="/sobre" class="btn btn-outline" style="margin-top: 32px;">Saiba mais →</a>
+        </div>
+
+        <div class="skills-grid">
+          {[
+            { area: 'Logística Portuária', icon: '⚓', items: ['Operações de Grãos', 'Armazém Geral', 'Cavaco de Madeira'] },
+            { area: 'Agronegócio', icon: '🌱', items: ['Soja · Milho · Trigo', 'Análise de Safra', 'Mercado de Commodities'] },
+            { area: 'Gestão', icon: '◈', items: ['Liderança de Equipes', 'KPIs & Dashboards', 'Processos Operacionais'] },
+            { area: 'Tecnologia', icon: '⟨/⟩', items: ['Automação', 'Análise de Dados', 'Desenvolvimento Web'] },
+          ].map(skill => (
+            <div class="skill-card">
+              <div class="skill-icon">{skill.icon}</div>
+              <h3 class="skill-area">{skill.area}</h3>
+              <ul class="skill-items">
+                {skill.items.map(item => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= PROJETOS (preview) ======= -->
+  <section class="projects-preview" id="projetos">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <p class="section-label">Projetos selecionados</p>
+          <h2 class="section-title">Trabalhos que<br />contam histórias reais.</h2>
+        </div>
+        <a href="/projetos" class="btn btn-outline">Ver todos →</a>
+      </div>
+
+      <div class="projects-grid">
+        {projects.map((project, i) => (
+          <a href={project.href} class="project-card card" style={`animation-delay: ${i * 0.1}s`}>
+            <div class="project-top">
+              <div class="project-status">
+                <span class={`status-dot ${project.status === 'Concluído' ? 'done' : 'active'}`}></span>
+                <span class="mono" style="font-size: 0.7rem; color: var(--text-muted);">{project.status}</span>
+              </div>
+              <span class="project-arrow">→</span>
+            </div>
+            <h3 class="project-title">{project.title}</h3>
+            <p class="project-desc">{project.description}</p>
+            <div class="project-tags">
+              {project.tags.map(tag => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= CTA CONTATO ======= -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-box">
+        <div class="cta-glow"></div>
+        <p class="mono accent" style="font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 16px;">
+          &gt; novo_contato.init()
+        </p>
+        <h2 style="font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 700; margin-bottom: 16px;">
+          Tem um projeto em mente?
+        </h2>
+        <p style="color: var(--text-secondary); margin-bottom: 32px; max-width: 420px; margin-left: auto; margin-right: auto;">
+          Estou aberto a conversas sobre projetos, parcerias, consultoria e novas ideias.
+        </p>
+        <a href="/contato" class="btn btn-primary" style="font-size: 1rem; padding: 14px 36px;">
+          Vamos conversar →
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  // Typewriter effect
+  const words = [
+    'Logística Portuária',
+    'Gestão de Operações',
+    'Agronegócio',
+    'Transformação Digital',
+    'Liderança de Equipes',
+  ];
+
+  const el = document.getElementById('typewriter');
+  if (el) {
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let isPaused = false;
+
+    function type() {
+      const current = words[wordIndex];
+
+      if (!isDeleting) {
+        el.textContent = current.substring(0, charIndex + 1);
+        charIndex++;
+        if (charIndex === current.length) {
+          isPaused = true;
+          setTimeout(() => { isPaused = false; isDeleting = true; }, 2200);
+        }
+      } else {
+        el.textContent = current.substring(0, charIndex - 1);
+        charIndex--;
+        if (charIndex === 0) {
+          isDeleting = false;
+          wordIndex = (wordIndex + 1) % words.length;
+        }
+      }
+
+      if (!isPaused) {
+        setTimeout(type, isDeleting ? 50 : 90);
+      }
+    }
+
+    setTimeout(type, 1000);
+  }
+
+  // Intersection Observer for fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.project-card, .skill-card').forEach(el => {
+    observer.observe(el);
+  });
+</script>
+
+<style>
+  /* === HERO === */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-top: 80px;
+  }
+
+  .hero-content {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 80px;
+    align-items: center;
+    width: 100%;
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+
+  .hero-text {
+    max-width: 640px;
+  }
+
+  .hero-greeting {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    letter-spacing: 0.05em;
+  }
+
+  .hero-name {
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    margin-bottom: 24px;
+  }
+
+  .hero-roles {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--text-secondary);
+    margin-bottom: 28px;
+    min-height: 1.7em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .role-dynamic {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .cursor {
+    animation: blink 1s step-end infinite;
+    font-weight: 300;
+  }
+
+  .hero-bio {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 36px;
+  }
+  .hero-bio strong {
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 52px;
+  }
+
+  .hero-stats {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .stat-value {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+  }
+  .stat-divider {
+    width: 1px;
+    height: 36px;
+    background: var(--border);
+  }
+
+  /* Hero visual */
+  .hero-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .avatar-wrapper {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .avatar-placeholder {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 1px solid var(--accent-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 0 40px rgba(0, 212, 255, 0.15);
+  }
+
+  .avatar-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid var(--accent-border);
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+  .ring-1 {
+    width: 190px;
+    height: 190px;
+    opacity: 0.5;
+    animation-delay: 0s;
+  }
+  .ring-2 {
+    width: 220px;
+    height: 220px;
+    opacity: 0.2;
+    animation-delay: 1s;
+  }
+
+  .avatar-badge {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-card);
+    border: 1px solid var(--accent-border);
+    padding: 5px 12px;
+    border-radius: 100px;
+    white-space: nowrap;
+    z-index: 3;
+  }
+
+  /* Scroll hint */
+  .hero-scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    animation: scroll-line 2s ease-in-out infinite;
+  }
+  @keyframes scroll-line {
+    0% { opacity: 1; transform: scaleY(1); transform-origin: top; }
+    100% { opacity: 0; transform: scaleY(0.3); transform-origin: bottom; }
+  }
+
+  /* === ABOUT PREVIEW === */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .skill-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    transition: all var(--transition);
+  }
+  .skill-card:hover {
+    border-color: var(--accent-border);
+    background: var(--bg-card-hover);
+  }
+
+  .skill-icon {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    font-family: var(--font-mono);
+    color: var(--accent);
+  }
+
+  .skill-area {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    font-family: var(--font-display);
+  }
+
+  .skill-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .skill-items li {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+  }
+  .skill-items li::before {
+    content: '› ';
+    color: var(--accent);
+  }
+
+  /* === PROJECTS PREVIEW === */
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 48px;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    text-decoration: none;
+  }
+
+  .project-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .project-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+  .status-dot.active {
+    background: var(--accent);
+    box-shadow: 0 0 6px var(--accent);
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+  .status-dot.done {
+    background: #22c55e;
+  }
+
+  .project-arrow {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    transition: all var(--transition);
+  }
+  .project-card:hover .project-arrow {
+    color: var(--accent);
+    transform: translate(4px, -4px);
+  }
+
+  .project-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-family: var(--font-display);
+    line-height: 1.3;
+  }
+
+  .project-desc {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    flex: 1;
+  }
+
+  .project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: auto;
+  }
+
+  /* === CTA === */
+  .cta-section {
+    padding: 80px 0;
+  }
+
+  .cta-box {
+    background: var(--bg-card);
+    border: 1px solid var(--accent-border);
+    border-radius: var(--radius-lg);
+    padding: 72px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-glow {
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 900px) {
+    .hero-content {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .hero-visual {
+      order: -1;
+    }
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    .projects-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+    .skills-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .hero-stats {
+      gap: 18px;
+    }
+  }
+</style>
