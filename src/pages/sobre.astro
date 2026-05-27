@@ -4,21 +4,21 @@ import Layout from '../layouts/Layout.astro';
 const timeline = [
   {
     year: '2024 →',
-    role: 'Gerente de Operações',
-    company: 'Setor Portuário',
-    desc: 'Liderança de equipe com 30 colaboradores. Gestão de operações de soja, milho, trigo e cavaco de madeira.',
-  },
-  {
-    year: '2020',
-    role: 'Coordenação Operacional',
-    company: 'Armazém Geral',
-    desc: 'Coordenação de fluxos logísticos, controle de estoque e gestão de processos de armazenagem de grãos.',
+    role: 'Gerente de Estoque e Operações',
+    company: 'Porto de Rio Grande / RS',
+    desc: 'Liderança de equipe com 30 colaboradores. Gestão de operações de soja, milho, trigo e cavaco de madeira. Foco em excelência operacional, precisão na formação de estoques e conformidade fiscal.',
   },
   {
     year: '2015',
-    role: 'Analista de Operações',
-    company: 'Porto',
-    desc: 'Análise e melhoria de processos operacionais portuários. Implementação de indicadores de desempenho.',
+    role: 'Coordenação e Supervisão Operacional',
+    company: 'Porto de Rio Grande / RS',
+    desc: 'Coordenação de fluxos logísticos, controle de estoque e gestão de processos de armazenagem de grãos. Implementação de KPIs e indicadores de desempenho operacional.',
+  },
+  {
+    year: '2002',
+    role: 'Início na Atividade Portuária',
+    company: 'Porto de Rio Grande / RS',
+    desc: 'Início da trajetória no setor portuário gaúcho. 22 anos construindo expertise em logística, agronegócio e gestão de operações no corredor de exportação do Rio Grande do Sul.',
   },
 ];
 ---
@@ -42,19 +42,20 @@ const timeline = [
       <div class="container bio-grid">
         <div class="bio-text">
           <p>
-            Sou Rodrigo Marchand, Gerente com atuação no setor portuário e forte expertise em agronegócio —
-            especialmente nos segmentos de soja, milho, trigo e cavaco de madeira. Atualmente lidero uma
-            equipe de 30 pessoas em operações de alta complexidade logística.
+            Sou Rodrigo Marchand, profissional com 22 anos de atuação no setor portuário de Rio Grande/RS,
+            na linha de frente do escoamento da produção gaúcha de soja, milho e trigo para o mundo.
+            Atualmente lidero uma equipe de 30 pessoas em operações de alta complexidade logística.
           </p>
           <p>
-            Minha carreira foi construída na prática: fui aprendendo gestão gerindo, aprendendo logística
-            operando, e aprendendo sobre dados analisando resultados reais. Não sou um teórico — sou alguém
-            que trabalha com volume, prazo e pressão todos os dias.
+            Minha carreira foi construída na prática — 22 anos de operação real com volume, prazo e pressão
+            diários. Tenho experiência sólida em sistemas como Totvs Protheus (ERP), Docsystem (GED) e TN3,
+            e desenvolvo soluções próprias em Excel/VBA para análise e controle operacional de logística
+            interna e externa.
           </p>
           <p>
-            Nos últimos anos, desenvolvi um interesse crescente por tecnologia como alavanca de produtividade.
-            Acredito que profissionais do setor real que entendem de sistemas têm vantagem competitiva enorme
-            — e é essa fronteira que quero habitar.
+            Sou entusiasta de tecnologia e inovação aplicados ao mundo real. Acredito que profissionais de
+            operação que dominam dados e sistemas têm vantagem competitiva decisiva — e é essa fronteira
+            que quero habitar e expandir.
           </p>
         </div>
 
@@ -64,11 +65,12 @@ const timeline = [
               // stack profissional
             </h3>
             {[
-              ['Localização', 'Rio Grande do Sul, BR'],
+              ['Localização', 'Rio Grande, RS'],
               ['Setor', 'Portuário / Agronegócio'],
               ['Equipe', '30 colaboradores'],
-              ['Especialidade', 'Grãos · Logística · Gestão'],
-              ['Interesse atual', 'Tecnologia & Automação'],
+              ['Sistemas', 'Totvs Protheus · Docsystem · TN3'],
+              ['Especialidade', 'Soja · Milho · Trigo · Cavaco'],
+              ['Interesse atual', 'BI & Automação'],
             ].map(([key, val]) => (
               <div class="detail-row">
                 <span class="mono" style="font-size: 0.75rem; color: var(--text-muted);">{key}</span>
