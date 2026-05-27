@@ -13,11 +13,7 @@ const currentPath = Astro.url.pathname;
 <header class="header" id="header">
   <div class="container header-inner">
     <a href="/" class="logo" aria-label="Rodrigo Marchand - Home">
-      <span class="logo-bracket">[</span>
-      <span class="logo-name">rm</span>
-      <span class="logo-dot accent">.</span>
-      <span class="logo-tld">dev</span>
-      <span class="logo-bracket">]</span>
+      <img src="/logo.svg" alt="rmarchand.dev.br" class="logo-img" width="160" height="36" />
     </a>
 
     <nav class="nav" aria-label="Navegação principal">
@@ -117,23 +113,18 @@ const currentPath = Astro.url.pathname;
 
   /* Logo */
   .logo {
-    font-family: var(--font-mono);
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: var(--text-primary);
+    display: flex;
+    align-items: center;
     text-decoration: none;
-    letter-spacing: -0.02em;
-    transition: color var(--transition);
-    white-space: nowrap;
+    flex-shrink: 0;
   }
-  .logo:hover .logo-name {
-    color: var(--accent);
+  .logo-img {
+    height: 36px;
+    width: auto;
+    transition: opacity var(--transition);
   }
-  .logo-bracket {
-    color: var(--text-muted);
-  }
-  .logo-dot {
-    color: var(--accent);
+  .logo:hover .logo-img {
+    opacity: 0.85;
   }
 
   /* Nav */
