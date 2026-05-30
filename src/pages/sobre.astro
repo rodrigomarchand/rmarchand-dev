@@ -1,6 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
+const anos = new Date().getFullYear() - 2002;
+
 const timeline = [
   {
     year: '2024 →',
@@ -18,7 +20,7 @@ const timeline = [
     year: '2002',
     role: 'Início na Atividade Portuária',
     company: 'Porto de Rio Grande / RS',
-    desc: 'Início da trajetória no setor portuário gaúcho. 22 anos construindo expertise em logística, agronegócio e gestão de operações no corredor de exportação do Rio Grande do Sul.',
+    desc: `Início da trajetória no setor portuário gaúcho. ${anos} anos construindo expertise em logística, agronegócio e gestão de operações no corredor de exportação do Rio Grande do Sul.`,
   },
 ];
 ---
@@ -42,12 +44,12 @@ const timeline = [
       <div class="container bio-grid">
         <div class="bio-text">
           <p>
-            Sou Rodrigo Marchand, profissional com 22 anos de atuação no setor portuário de Rio Grande/RS,
+            Sou Rodrigo Marchand, profissional com {anos} anos de atuação no setor portuário de Rio Grande/RS,
             na linha de frente do escoamento da produção gaúcha de soja, milho e trigo para o mundo.
             Atualmente lidero uma equipe de 30 pessoas em operações de alta complexidade logística.
           </p>
           <p>
-            Minha carreira foi construída na prática — 22 anos de operação real com volume, prazo e pressão
+            Minha carreira foi construída na prática — {anos} anos de operação real com volume, prazo e pressão
             diários. Tenho experiência sólida em sistemas como Totvs Protheus (ERP), Docsystem (GED) e TN3,
             e desenvolvo soluções próprias em Excel/VBA para análise e controle operacional de logística
             interna e externa.
