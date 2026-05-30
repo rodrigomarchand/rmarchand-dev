@@ -3,6 +3,13 @@ const navLinks = [
   { href: '/', label: 'Início' },
   { href: '/sobre', label: 'Sobre' },
   { href: '/projetos', label: 'Projetos' },
+  {
+    label: 'Ferramentas',
+    href: '/ferramentas',
+    dropdown: [
+      { href: '/ferramentas/s-calc', label: 'S_CALC', desc: 'Calculadora Portuária' },
+    ],
+  },
   { href: '/blog', label: 'Blog' },
   { href: '/contato', label: 'Contato' },
 ];
@@ -18,12 +25,34 @@ const currentPath = Astro.url.pathname;
 
     <nav class="nav" aria-label="Navegação principal">
       {navLinks.map(link => (
-        <a
-          href={link.href}
-          class={`nav-link ${currentPath === link.href ? 'active' : ''}`}
-        >
-          {link.label}
-        </a>
+        link.dropdown ? (
+          <div class={`nav-dropdown-wrapper ${currentPath.startsWith('/ferramentas') ? 'active' : ''}`}>
+            <button class="nav-link nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+              {link.label}
+              <svg class="dropdown-chevron" width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M2 4L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <div class="dropdown-menu" role="menu">
+              {link.dropdown.map((item: { href: string; label: string; desc: string }) => (
+                <a href={item.href} class="dropdown-item" role="menuitem">
+                  <span class="dropdown-item-label">{item.label}</span>
+                  <span class="dropdown-item-desc">{item.desc}</span>
+                </a>
+              ))}
+              <a href={link.href} class="dropdown-all" role="menuitem">
+                Ver todas as ferramentas →
+              </a>
+            </div>
+          </div>
+        ) : (
+          <a
+            href={link.href}
+            class={`nav-link ${currentPath === link.href ? 'active' : ''}`}
+          >
+            {link.label}
+          </a>
+        )
       ))}
     </nav>
 
@@ -41,9 +70,22 @@ const currentPath = Astro.url.pathname;
   <!-- Mobile nav -->
   <div class="mobile-nav" id="mobile-nav" aria-hidden="true">
     {navLinks.map(link => (
-      <a href={link.href} class="mobile-nav-link">
-        {link.label}
-      </a>
+      link.dropdown ? (
+        <>
+          <a href={link.href} class="mobile-nav-link">
+            {link.label}
+          </a>
+          {link.dropdown.map((item: { href: string; label: string; desc: string }) => (
+            <a href={item.href} class="mobile-nav-link mobile-nav-sub">
+              ↳ {item.label}
+            </a>
+          ))}
+        </>
+      ) : (
+        <a href={link.href} class="mobile-nav-link">
+          {link.label}
+        </a>
+      )
     ))}
     <a href="/contato" class="btn btn-primary" style="margin-top: 8px; justify-content: center;">
       Fale comigo
@@ -82,6 +124,35 @@ const currentPath = Astro.url.pathname;
       hamburger?.classList.remove('open');
       mobileNav?.classList.remove('open');
     });
+  });
+
+  // Dropdown desktop
+  document.querySelectorAll('.nav-dropdown-trigger').forEach(trigger => {
+    const wrapper = trigger.closest('.nav-dropdown-wrapper');
+    const menu = wrapper?.querySelector('.dropdown-menu');
+
+    trigger.addEventListener('click', () => {
+      const isOpen = trigger.getAttribute('aria-expanded') === 'true';
+      // close all
+      document.querySelectorAll('.nav-dropdown-trigger').forEach(t => {
+        t.setAttribute('aria-expanded', 'false');
+        t.closest('.nav-dropdown-wrapper')?.querySelector('.dropdown-menu')?.classList.remove('open');
+      });
+      if (!isOpen) {
+        trigger.setAttribute('aria-expanded', 'true');
+        menu?.classList.add('open');
+      }
+    });
+  });
+
+  // Close dropdown on outside click
+  document.addEventListener('click', (e) => {
+    if (!(e.target as Element)?.closest('.nav-dropdown-wrapper')) {
+      document.querySelectorAll('.nav-dropdown-trigger').forEach(t => {
+        t.setAttribute('aria-expanded', 'false');
+        t.closest('.nav-dropdown-wrapper')?.querySelector('.dropdown-menu')?.classList.remove('open');
+      });
+    }
   });
 </script>
 
@@ -142,6 +213,13 @@ const currentPath = Astro.url.pathname;
     border-radius: var(--radius);
     transition: all var(--transition);
     position: relative;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    gap: 5px;
   }
   .nav-link:hover,
   .nav-link.active {
@@ -149,6 +227,91 @@ const currentPath = Astro.url.pathname;
     background: var(--accent-dim);
   }
   .nav-link.active {
+    color: var(--accent);
+  }
+
+  /* Dropdown */
+  .nav-dropdown-wrapper {
+    position: relative;
+  }
+
+  .nav-dropdown-wrapper.active .nav-dropdown-trigger {
+    color: var(--accent);
+  }
+
+  .dropdown-chevron {
+    transition: transform 0.2s ease;
+  }
+  .nav-dropdown-trigger[aria-expanded="true"] .dropdown-chevron {
+    transform: rotate(180deg);
+  }
+
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 220px;
+    background: rgba(15, 15, 15, 0.97);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 8px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+    z-index: 200;
+  }
+  .dropdown-menu.open {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    animation: fadeDown 0.15s ease;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateX(-50%) translateY(-6px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+
+  .dropdown-item {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 12px;
+    border-radius: 7px;
+    text-decoration: none;
+    transition: background var(--transition);
+    gap: 2px;
+  }
+  .dropdown-item:hover {
+    background: var(--accent-dim);
+  }
+  .dropdown-item-label {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: 0.03em;
+  }
+  .dropdown-item-desc {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+  .dropdown-item:hover .dropdown-item-label {
+    color: var(--accent);
+  }
+
+  .dropdown-all {
+    display: block;
+    padding: 8px 12px;
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    text-decoration: none;
+    border-top: 1px solid var(--border);
+    margin-top: 4px;
+    transition: color var(--transition);
+  }
+  .dropdown-all:hover {
     color: var(--accent);
   }
 
@@ -203,7 +366,7 @@ const currentPath = Astro.url.pathname;
     transition: max-height 0.4s ease;
   }
   .mobile-nav.open {
-    max-height: 400px;
+    max-height: 500px;
   }
   .mobile-nav-link {
     padding: 12px 8px;
@@ -211,10 +374,20 @@ const currentPath = Astro.url.pathname;
     color: var(--text-secondary);
     border-radius: var(--radius);
     transition: all var(--transition);
+    text-decoration: none;
+    display: block;
   }
   .mobile-nav-link:hover {
     color: var(--accent);
     padding-left: 16px;
+  }
+  .mobile-nav-sub {
+    padding-left: 24px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+  .mobile-nav-sub:hover {
+    padding-left: 32px;
   }
 
   @media (max-width: 768px) {

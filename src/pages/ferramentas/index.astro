@@ -1,0 +1,246 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const tools = [
+  {
+    name: 'S_CALC',
+    slug: 's-calc',
+    status: 'online',
+    description: 'Calculadora científica com módulo especializado em operações portuárias. Calcula previsão de término, produtividade real e peso movimentado de grãos.',
+    tags: ['PWA', 'Offline', 'Grãos', 'Logística'],
+    icon: '⚓',
+  },
+];
+---
+
+<Layout
+  title="Ferramentas | rmarchand.dev.br"
+  description="Ferramentas operacionais para logística portuária e agronegócio. Desenvolvidas para uso real no Porto de Rio Grande/RS."
+>
+  <section class="tools-hero">
+    <div class="container">
+      <div class="section-label mono">
+        <span class="label-dot"></span>
+        ferramentas
+      </div>
+      <h1 class="tools-title">Ferramentas Operacionais</h1>
+      <p class="tools-subtitle">
+        Utilitários desenvolvidos para uso real no Porto de Rio Grande/RS.<br />
+        Funcionam offline, sem instalação, direto no navegador.
+      </p>
+    </div>
+  </section>
+
+  <section class="tools-grid-section">
+    <div class="container">
+      <div class="tools-grid">
+        {tools.map(tool => (
+          <a href={`/ferramentas/${tool.slug}`} class="tool-card">
+            <div class="tool-card-header">
+              <span class="tool-icon">{tool.icon}</span>
+              <span class={`status-badge ${tool.status}`}>
+                <span class="status-dot"></span>
+                {tool.status}
+              </span>
+            </div>
+            <h2 class="tool-name">{tool.name}</h2>
+            <p class="tool-desc">{tool.description}</p>
+            <div class="tool-tags">
+              {tool.tags.map(tag => (
+                <span class="tag mono">{tag}</span>
+              ))}
+            </div>
+            <div class="tool-cta">
+              <span>Abrir ferramenta</span>
+              <span class="arrow">→</span>
+            </div>
+          </a>
+        ))}
+
+        <!-- Placeholder para futuras ferramentas -->
+        <div class="tool-card placeholder">
+          <div class="tool-card-header">
+            <span class="tool-icon muted">⬡</span>
+          </div>
+          <h2 class="tool-name muted">Em breve</h2>
+          <p class="tool-desc muted">Novas ferramentas operacionais em desenvolvimento.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .tools-hero {
+    padding: 120px 0 56px;
+  }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  .label-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .tools-title {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+  }
+
+  .tools-subtitle {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    max-width: 520px;
+  }
+
+  .tools-grid-section {
+    padding: 0 0 100px;
+  }
+
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  .tool-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: all var(--transition);
+    cursor: pointer;
+  }
+
+  .tool-card:not(.placeholder):hover {
+    border-color: var(--accent);
+    background: var(--accent-dim);
+    transform: translateY(-2px);
+  }
+
+  .tool-card.placeholder {
+    opacity: 0.4;
+    cursor: default;
+    border-style: dashed;
+  }
+
+  .tool-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .tool-icon {
+    font-size: 1.6rem;
+  }
+
+  .tool-icon.muted {
+    opacity: 0.4;
+  }
+
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+
+  .status-badge.online {
+    color: #4ade80;
+    background: rgba(74, 222, 128, 0.08);
+    border: 1px solid rgba(74, 222, 128, 0.2);
+  }
+
+  .status-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .tool-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+  }
+
+  .tool-name.muted {
+    color: var(--text-muted);
+  }
+
+  .tool-desc {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    flex: 1;
+  }
+
+  .tool-desc.muted {
+    color: var(--text-muted);
+  }
+
+  .tool-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tag {
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2px 8px;
+  }
+
+  .tool-cta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--accent);
+    font-family: var(--font-mono);
+  }
+
+  .arrow {
+    transition: transform var(--transition);
+  }
+
+  .tool-card:hover .arrow {
+    transform: translateX(4px);
+  }
+</style>

@@ -1,0 +1,157 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+
+<Layout
+  title="S_CALC — Calculadora Portuária | rmarchand.dev.br"
+  description="Calculadora científica com módulo especializado no cálculo de tempo de operação de carregamento e descarregamento de grãos em terminais portuários."
+>
+  <section class="tool-hero">
+    <div class="container">
+      <div class="tool-header">
+        <div class="tool-badge">
+          <span class="badge-dot"></span>
+          Ferramenta
+        </div>
+        <h1 class="tool-title">S_CALC</h1>
+        <p class="tool-description">
+          Calculadora científica + módulo de operações portuárias.<br />
+          Calcule previsão de término, produtividade real e peso movimentado — offline, direto no navegador.
+        </p>
+        <div class="tool-meta">
+          <span class="meta-tag">PWA</span>
+          <span class="meta-tag">Offline</span>
+          <span class="meta-tag">Grãos</span>
+          <span class="meta-tag">Logística Portuária</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tool-embed">
+    <div class="container">
+      <div class="iframe-wrapper">
+        <iframe
+          src="/apps/s-calc/index.html"
+          title="S_CALC — Calculadora Portuária"
+          loading="lazy"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <p class="iframe-hint mono">
+        ↗ <a href="/apps/s-calc/index.html" target="_blank" rel="noopener">Abrir em tela cheia</a>
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .tool-hero {
+    padding: 120px 0 48px;
+  }
+
+  .tool-header {
+    max-width: 680px;
+  }
+
+  .tool-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .tool-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+  }
+
+  .tool-description {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 24px;
+  }
+
+  .tool-meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .meta-tag {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 3px 10px;
+  }
+
+  .tool-embed {
+    padding: 0 0 80px;
+  }
+
+  .iframe-wrapper {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    background: #020617;
+    position: relative;
+  }
+
+  .iframe-wrapper iframe {
+    width: 100%;
+    height: 780px;
+    border: none;
+    display: block;
+  }
+
+  .iframe-hint {
+    margin-top: 12px;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    text-align: right;
+  }
+
+  .iframe-hint a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: opacity var(--transition);
+  }
+
+  .iframe-hint a:hover {
+    opacity: 0.75;
+  }
+
+  @media (max-width: 768px) {
+    .tool-hero {
+      padding: 100px 0 36px;
+    }
+    .iframe-wrapper iframe {
+      height: 600px;
+    }
+  }
+</style>
