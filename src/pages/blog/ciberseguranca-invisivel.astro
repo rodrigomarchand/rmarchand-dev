@@ -1,0 +1,256 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const title = 'Cibersegurança Invisível: O que acontece nos bastidores da sua proteção digital';
+const description = 'A cibersegurança moderna vai muito além do antivírus. Entenda os mecanismos invisíveis que protegem seus dados — de honeypots a criptografia AES-256.';
+const date = '2026-06-23';
+const readTime = '7 min';
+const tags = ['Cibersegurança', 'Tecnologia', 'ADS'];
+
+function formatDate(str: string) {
+  return new Date(str).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+}
+---
+
+<Layout title={title} description={description}>
+  <div style="padding-top: 100px;">
+    <article>
+
+      <header class="post-header">
+        <div class="container">
+          <div class="post-meta">
+            <span class="mono post-date">{formatDate(date)}</span>
+            <span class="mono post-read">{readTime} de leitura</span>
+          </div>
+          <h1 class="post-title">{title}</h1>
+          <p class="post-lead">{description}</p>
+          <div class="post-tags">
+            {tags.map(tag => <span class="tag">{tag}</span>)}
+          </div>
+        </div>
+      </header>
+
+      <div class="post-content">
+        <div class="container">
+
+          <h2>O Invisível que nos Protege</h2>
+          <p>
+            Neste exato momento, seus dados estão cruzando oceanos e fronteiras através de campos de batalha invisíveis.
+            Você acredita que está seguro porque instalou um antivírus ou criou uma senha complexa? A realidade é que a
+            cibersegurança moderna é uma fortaleza viva, reconstruindo-se em milissegundos. Mas o que realmente separa
+            a sua privacidade do caos digital absoluto?
+          </p>
+
+          <h2>O Elo Mais Fraco é Humano: Fortaleza ou Teatro?</h2>
+          <p>
+            Gastamos fortunas em firewalls de última geração para sermos derrotados por um "Post-it" colado no monitor.
+            A "consumerização" da tecnologia, impulsionada pelo BYOD (Bring Your Own Device), diluiu as fronteiras corporativas.
+            Seus dados de trabalho agora viajam no mesmo aparelho que seus aplicativos de lazer e redes sociais sem proteção adequada.
+            A Engenharia Social prova que o código mais difícil de proteger não é o de software, mas o comportamento humano.
+          </p>
+          <p>
+            A manipulação psicológica explora a confiança e a ingenuidade, contornando qualquer barreira técnica. É a prova de
+            que a segurança não pode ser um acessório "colado" ao final de um projeto. Ela deve ser o alicerce, integrada ao
+            design e à cultura desde o primeiro bit de código.
+          </p>
+
+          <blockquote>
+            "Segurança não é um produto que você compra, é um processo que você vive e respira."
+            <cite>Inspirado em Bruce Schneier, especialista em segurança</cite>
+          </blockquote>
+
+          <h2>Alarmes vs. Seguranças Ativos: A Vigilância de Elite</h2>
+          <p>
+            No mundo real, a diferença entre ser invadido ou estar protegido depende da agilidade da sua defesa.
+            Especialistas não dependem apenas de sorte; eles utilizam ferramentas de líderes como Palo Alto e Fortinet.
+            Entender a diferença entre IDS e IPS é o que separa amadores de profissionais de segurança:
+          </p>
+          <ul>
+            <li><strong>IDS (Detecção):</strong> É o alarme que toca quando o intruso pula o muro, mas não impede o roubo.</li>
+            <li><strong>IPS (Prevenção):</strong> É o segurança de elite que imobiliza o invasor antes mesmo que ele toque na porta.</li>
+          </ul>
+          <p>
+            A automação é a única resposta possível contra ataques que ocorrem na velocidade da luz. Sistemas ativos bloqueiam
+            o tráfego perigoso instantaneamente, garantindo que a rede permaneça íntegra.
+          </p>
+
+          <h2>Potes de Mel e Caixas de Areia: A Arte do Engano</h2>
+          <p>
+            A defesa moderna não é apenas passiva; ela é engenhosamente proativa e, às vezes, até provocadora. Utilizamos
+            Honeypots (Potes de Mel), sistemas falsos desenhados para atrair e distrair hackers curiosos. Ao observar o
+            atacante em um ambiente controlado, aprendemos suas táticas sem expor dados reais.
+          </p>
+          <p>
+            Já o Sandbox (Caixa de Areia) funciona como um laboratório de contenção biológica para softwares. Arquivos
+            suspeitos são executados de forma isolada para que qualquer "explosão" de código malicioso não contamine o
+            sistema. Prever o próximo passo do inimigo é a melhor forma de garantir que ele nunca alcance o alvo.
+          </p>
+
+          <h2>A Matemática da Confiança: Criptografia e Impressões Digitais</h2>
+          <p>
+            A Criptografia Simétrica é veloz para grandes volumes, mas a Assimétrica é a verdadeira revolução da internet.
+            Ela utiliza chaves públicas e privadas, eliminando a necessidade perigosa de compartilhar chaves secretas.
+            Já a função hash gera uma "impressão digital" única para cada arquivo ou transação digital. Se um único bit
+            for alterado, o código hash muda completamente, denunciando a violação da integridade.
+          </p>
+          <p>
+            A robustez dessa matemática é o que sustenta as urnas eletrônicas brasileiras em suas 30 camadas de segurança.
+            O sistema brasileiro utiliza um SO Linux personalizado e criptografia pesada com o padrão AES-256. Assinaturas
+            digitais e funções hash garantem que o software seja autêntico e os votos permaneçam invioláveis. É a prova de
+            que, quando bem aplicada, a tecnologia blinda a democracia contra manipulações.
+          </p>
+
+          <h2>Da Nuvem para a Névoa: O Filtro da IoT</h2>
+          <p>
+            O futuro da Internet das Coisas (IoT) exige mais do que apenas enviar tudo para uma nuvem centralizada.
+            Com bilhões de dispositivos gerando ruído, o processamento precisa ser descentralizado para evitar o congestionamento.
+            A Edge Computing (Computação de Borda) processa os dados no próprio dispositivo, garantindo respostas em tempo real.
+          </p>
+          <p>
+            A Fog Computing (Névoa) atua como uma camada intermediária, filtrando dados antes que eles afoguem a nuvem.
+            Utilizando o protocolo MQTT, leve e eficiente, criamos uma comunicação máquina a máquina inteligente.
+            Essa hierarquia é o que permite que sua casa inteligente e fábricas autônomas operem sem latência fatal.
+          </p>
+
+          <h2>Conclusão: O Sistema de Gestão Vivo</h2>
+          <p>
+            Cibersegurança não é um destino final, mas uma jornada contínua regida pelo SGSI. Um Sistema de Gestão de
+            Segurança da Informação eficaz une usuários, processos, tecnologia e dados. Desde diretrizes do NIST e CIS
+            até leis como a LGPD, a conformidade é apenas o ponto de partida.
+          </p>
+          <p>
+            Nesta fortaleza invisível, os protocolos fazem o trabalho pesado, mas a vigilância é humana. A tecnologia pode
+            erguer muros, mas são suas escolhas diárias que mantêm os portões fechados. No campo de batalha digital, você
+            é um espectador passivo ou um agente consciente da sua própria defesa?
+          </p>
+
+          <div class="post-footer">
+            <a href="/blog" class="back-link mono">← voltar ao blog</a>
+          </div>
+
+        </div>
+      </div>
+
+    </article>
+  </div>
+</Layout>
+
+<style>
+  .post-header {
+    padding: 60px 0 48px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .post-meta {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .post-date,
+  .post-read {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+  }
+
+  .post-title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 700;
+    font-family: var(--font-display);
+    line-height: 1.2;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    max-width: 820px;
+  }
+
+  .post-lead {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+    max-width: 680px;
+    margin-bottom: 24px;
+  }
+
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .post-content {
+    padding: 56px 0 100px;
+  }
+
+  .post-content h2 {
+    font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+    font-weight: 600;
+    font-family: var(--font-display);
+    color: var(--text-primary);
+    margin: 48px 0 16px;
+  }
+
+  .post-content p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.85;
+    margin-bottom: 20px;
+    max-width: 720px;
+  }
+
+  .post-content ul {
+    margin: 0 0 20px 0;
+    padding-left: 24px;
+    max-width: 720px;
+  }
+
+  .post-content ul li {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 10px;
+  }
+
+  blockquote {
+    border-left: 3px solid var(--accent);
+    padding: 20px 28px;
+    margin: 36px 0;
+    background: var(--bg-card);
+    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+    max-width: 720px;
+  }
+
+  blockquote p,
+  blockquote {
+    font-size: 1.05rem;
+    color: var(--text-primary);
+    font-style: italic;
+    line-height: 1.7;
+    margin-bottom: 8px;
+  }
+
+  blockquote cite {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-style: normal;
+    font-family: var(--font-mono);
+    margin-top: 10px;
+  }
+
+  .post-footer {
+    margin-top: 72px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+  }
+
+  .back-link {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color var(--transition);
+  }
+
+  .back-link:hover {
+    color: var(--accent);
+  }
+</style>
