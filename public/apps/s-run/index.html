@@ -228,11 +228,26 @@
         }
 
         /* ============================================================
-           DENSIDADE
+           DENSIDADE — escala padding e fontes dos componentes
         ============================================================ */
-        :root { --gap: 0.4rem; }
-        [data-density="compact"]     { --gap: 0.22rem; }
-        [data-density="comfortable"] { --gap: 0.55rem; }
+        :root {
+            --field-py: 0.6rem;  --field-fs: 1rem;     --label-fs: 0.65rem;
+            --res-fs: 1.05rem;   --tab-py: 0.5rem;     --tab-fs: 0.76rem;
+            --preset-py: 0.45rem;--preset-fs: 0.72rem; --calcbtn-py: 0.7rem;
+            --calcbtn-fs: 0.88rem; --section-py: 0.45rem; --gap: 0.4rem;
+        }
+        [data-density="compact"] {
+            --field-py: 0.38rem; --field-fs: 0.88rem;  --label-fs: 0.6rem;
+            --res-fs: 0.92rem;   --tab-py: 0.34rem;    --tab-fs: 0.7rem;
+            --preset-py: 0.3rem; --preset-fs: 0.66rem; --calcbtn-py: 0.5rem;
+            --calcbtn-fs: 0.8rem; --section-py: 0.3rem; --gap: 0.22rem;
+        }
+        [data-density="comfortable"] {
+            --field-py: 0.85rem; --field-fs: 1.1rem;   --label-fs: 0.7rem;
+            --res-fs: 1.18rem;   --tab-py: 0.7rem;     --tab-fs: 0.82rem;
+            --preset-py: 0.6rem; --preset-fs: 0.78rem; --calcbtn-py: 0.9rem;
+            --calcbtn-fs: 0.95rem; --section-py: 0.6rem; --gap: 0.55rem;
+        }
 
         button, input, select { touch-action: manipulation; }
 
@@ -266,9 +281,9 @@
         ============================================================ */
         .mode-tabs { display:flex; gap:0.4rem; margin-bottom:0.85rem; }
         .mode-tab {
-            flex:1; padding:0.5rem 0.5rem; font-size:0.76rem; font-weight:600;
+            flex:1; padding:var(--tab-py) 0.5rem; font-size:var(--tab-fs); font-weight:600;
             border-radius:0.55rem; border:1px solid var(--tab-brd); color:var(--tab-txt);
-            transition:all 0.18s; cursor:pointer; background:transparent;
+            transition:all 0.18s, padding 0.2s ease, font-size 0.2s ease; cursor:pointer; background:transparent;
             position:relative; overflow:hidden; white-space:nowrap;
         }
         .mode-tab:active { transform:scale(0.96); }
@@ -308,9 +323,9 @@
         ============================================================ */
         .presets { display:flex; gap:0.35rem; margin-bottom:0.85rem; flex-wrap:wrap; }
         .preset {
-            flex:1; padding:0.45rem 0.2rem; font-size:0.72rem; font-weight:600;
+            flex:1; padding:var(--preset-py) 0.2rem; font-size:var(--preset-fs); font-weight:600;
             border-radius:0.5rem; border:1px solid var(--preset-brd); color:var(--preset-txt);
-            background:transparent; cursor:pointer; white-space:nowrap; transition:all 0.15s;
+            background:transparent; cursor:pointer; white-space:nowrap; transition:all 0.15s, padding 0.2s ease, font-size 0.2s ease;
         }
         .preset:hover { border-color:var(--preset-hov-brd); color:var(--preset-hov-txt); }
         .preset:active { transform:scale(0.94); }
@@ -319,14 +334,15 @@
            MÓDULO DE CAMPOS
         ============================================================ */
         .op-field {
-            display:flex; flex-direction:column; gap:0.2rem; padding:0.6rem 0.8rem;
-            border-bottom:1px solid var(--op-field-brd); transition: background 0.12s;
+            display:flex; flex-direction:column; gap:0.2rem; padding:var(--field-py) 0.8rem;
+            border-bottom:1px solid var(--op-field-brd); transition: background 0.12s, padding 0.2s ease;
         }
         .op-field:last-child { border-bottom:none; }
-        .op-field label { font-size:0.65rem; font-weight:700; color:var(--txt-muted); text-transform:uppercase; letter-spacing:0.06em; }
+        .op-field label { font-size:var(--label-fs); font-weight:700; color:var(--txt-muted); text-transform:uppercase; letter-spacing:0.06em; }
         .op-field input {
             background:transparent; border:none; outline:none;
-            color:var(--txt-secondary); font-size:1rem; font-weight:500; width:100%; padding:0;
+            color:var(--txt-secondary); font-size:var(--field-fs); font-weight:500; width:100%; padding:0;
+            transition:font-size 0.2s ease;
         }
         .op-field input::placeholder { color:var(--op-placeholder); }
         .op-field input:focus { color:var(--op-editable-inp); }
@@ -335,11 +351,11 @@
         .op-field.editable input { color:var(--op-editable-inp); }
         .op-field.result-field { background:var(--op-result-bg); border-left:2px solid var(--op-result-brd); }
         .op-field.result-field label { color:var(--op-result-lbl); }
-        .result-value { font-size:1.05rem; font-weight:700; color:var(--op-result-val); min-height:1.3rem; }
+        .result-value { font-size:var(--res-fs); font-weight:700; color:var(--op-result-val); min-height:1.3rem; transition:font-size 0.2s ease; }
         .op-field .sub-value { font-size:0.7rem; color:var(--op-subval); margin-top:0.05rem; }
         .op-section-label {
             font-size:0.6rem; font-weight:700; color:var(--op-section-txt); text-transform:uppercase;
-            letter-spacing:0.08em; padding:0.45rem 0.8rem 0.15rem; background:var(--op-section-bg);
+            letter-spacing:0.08em; padding:var(--section-py) 0.8rem 0.15rem; background:var(--op-section-bg); transition:padding 0.2s ease;
         }
 
         /* sub-seletor Ritmo / Velocidade */
@@ -353,10 +369,10 @@
         .calc-mode-btn.active { background:var(--op-mode-act-bg); color:var(--op-mode-act-txt); border-color:var(--op-mode-act-brd); }
 
         .op-calc-btn {
-            width:100%; padding:0.7rem; font-size:0.88rem; font-weight:700;
+            width:100%; padding:var(--calcbtn-py); font-size:var(--calcbtn-fs); font-weight:700;
             border-radius:0.7rem; border:none; cursor:pointer;
             background:linear-gradient(135deg,#4f46e5,#6366f1); color:white;
-            transition:all 0.15s; box-shadow:0 4px 15px rgba(99,102,241,.3);
+            transition:all 0.15s, padding 0.2s ease, font-size 0.2s ease; box-shadow:0 4px 15px rgba(99,102,241,.3);
         }
         .op-calc-btn:hover { filter:brightness(1.1); transform:translateY(-1px); }
         .op-calc-btn:active { transform:scale(0.96); box-shadow:0 0 0 3px rgba(99,102,241,.5); }
@@ -610,7 +626,7 @@ function setRate(r){
     setTimeout(syncHistoryHeight, 50);
 }
 
-function setDist(km){ getEl('i-dist').value = String(km).replace('.', ','); liveCalc(); }
+function setDist(km){ getEl('i-dist').value = km; liveCalc(); }
 
 // ====================================================================
 // PARSE / FORMATAÇÃO
