@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#020617">
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="S_RUN">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>S_RUN</title>
+    <style>
+        /* ============================================================
+           BASE / SCROLLBAR
+        ============================================================ */
+        * { box-sizing: border-box; }
+
+        .scrollbar-custom::-webkit-scrollbar { width: 5px; }
+        .scrollbar-custom::-webkit-scrollbar-track { background: transparent; }
+        .scrollbar-custom::-webkit-scrollbar-thumb { background: var(--scrollbar-thumb); border-radius: 10px; }
+        .scrollbar-custom::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-hov); }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+
+        /* ============================================================
+           TEMAS — Noite (dark) e Dia (light)
+        ============================================================ */
+        :root, [data-theme="night"] {
+            --bg-page:        #020617;
+            --bg-panel:       #0f172a;
+            --bg-panel-inner: #080d18;
+            --bg-display:     #0a0f1e;
+            --border-panel:   #1e293b;
+            --border-inner:   #1e293b;
+
+            --txt-primary:    #f8fafc;
+            --txt-secondary:  #e2e8f0;
+            --txt-muted:      #475569;
+            --txt-subtle:     #334155;
+
+            --density-brd:    #1e293b;
+            --density-txt:    #64748b;
+            --density-active-bg:  #4338ca;
+            --density-active-txt: #ffffff;
+            --density-active-brd: #4338ca;
+
+            --tab-brd:        #1e293b;
+            --tab-txt:        #64748b;
+            --tab-active-bg:  #1e293b;
+            --tab-active-txt: #e2e8f0;
+            --tab-active-brd: #334155;
+            --tab-indicator:  #6366f1;
+
+            --op-field-brd:   #0f172a;
+            --op-editable-bg: rgba(99,102,241,0.06);
+            --op-editable-brd:#6366f1;
+            --op-editable-lbl:#818cf8;
+            --op-editable-inp:#a5b4fc;
+            --op-result-bg:   rgba(16,185,129,0.05);
+            --op-result-brd:  #10b981;
+            --op-result-lbl:  #34d399;
+            --op-result-val:  #6ee7b7;
+            --op-placeholder: #334155;
+            --op-section-txt: #334155;
+            --op-section-bg:  rgba(0,0,0,0.25);
+            --op-subval:      #475569;
+            --op-mode-brd:    #1e293b;
+            --op-mode-txt:    #475569;
+            --op-mode-act-bg: #1e1b4b;
+            --op-mode-act-txt:#a5b4fc;
+            --op-mode-act-brd:#4338ca;
+            --op-clear-brd:   #1e293b;
+            --op-clear-txt:   #475569;
+
+            --preset-brd:     #1e293b;
+            --preset-txt:     #64748b;
+            --preset-hov-brd: #6366f1;
+            --preset-hov-txt: #a5b4fc;
+
+            --hist-title:     #e2e8f0;
+            --hist-import-c:  #34d399;
+            --hist-del-c:     #f87171;
+            --hist-hover-bg:  #1e293b;
+            --hist-item-brd:  #1e293b;
+            --hist-time:      #334155;
+            --hist-math:      #cbd5e1;
+            --hist-empty:     #475569;
+            --hist-btn-bg:    #1e293b;
+            --hist-btn-brd:   #334155;
+            --hist-btn-txt:   #cbd5e1;
+            --hist-btn-hov:   #334155;
+
+            --scrollbar-thumb:#334155;
+            --scrollbar-hov:  #475569;
+
+            --shadow-panel:   rgba(0,0,0,0.6);
+        }
+
+        [data-theme="day"] {
+            --bg-page:        #E8F0F7;
+            --bg-panel:       #F4F7FA;
+            --bg-panel-inner: #EAEEF3;
+            --bg-display:     #FFFFFF;
+            --border-panel:   #C8D6E5;
+            --border-inner:   #D1DCE8;
+
+            --txt-primary:    #1E293B;
+            --txt-secondary:  #1E293B;
+            --txt-muted:      #64748B;
+            --txt-subtle:     #94A3B8;
+
+            --density-brd:    #C8D6E5;
+            --density-txt:    #64748B;
+            --density-active-bg:  #4338CA;
+            --density-active-txt: #FFFFFF;
+            --density-active-brd: #4338CA;
+
+            --tab-brd:        #C8D6E5;
+            --tab-txt:        #94A3B8;
+            --tab-active-bg:  #FFFFFF;
+            --tab-active-txt: #1E293B;
+            --tab-active-brd: #C8D6E5;
+            --tab-indicator:  #4338CA;
+
+            --op-field-brd:   #E2E8F0;
+            --op-editable-bg: rgba(67,56,202,0.05);
+            --op-editable-brd:#4338CA;
+            --op-editable-lbl:#4338CA;
+            --op-editable-inp:#1E293B;
+            --op-result-bg:   rgba(5,150,105,0.05);
+            --op-result-brd:  #059669;
+            --op-result-lbl:  #059669;
+            --op-result-val:  #065F46;
+            --op-placeholder: #94A3B8;
+            --op-section-txt: #94A3B8;
+            --op-section-bg:  rgba(200,214,229,0.3);
+            --op-subval:      #94A3B8;
+            --op-mode-brd:    #C8D6E5;
+            --op-mode-txt:    #94A3B8;
+            --op-mode-act-bg: #EEF2FF;
+            --op-mode-act-txt:#3730A3;
+            --op-mode-act-brd:#4338CA;
+            --op-clear-brd:   #C8D6E5;
+            --op-clear-txt:   #94A3B8;
+
+            --preset-brd:     #C8D6E5;
+            --preset-txt:     #64748B;
+            --preset-hov-brd: #4338CA;
+            --preset-hov-txt: #3730A3;
+
+            --hist-title:     #1E293B;
+            --hist-import-c:  #059669;
+            --hist-del-c:     #DC2626;
+            --hist-hover-bg:  #E2E8F0;
+            --hist-item-brd:  #D1DCE8;
+            --hist-time:      #94A3B8;
+            --hist-math:      #1E293B;
+            --hist-empty:     #94A3B8;
+            --hist-btn-bg:    #FFFFFF;
+            --hist-btn-brd:   #C8D6E5;
+            --hist-btn-txt:   #475569;
+            --hist-btn-hov:   #F1F5F9;
+
+            --scrollbar-thumb:#C8D6E5;
+            --scrollbar-hov:  #94A3B8;
+
+            --shadow-panel:   rgba(100,116,139,0.15);
+        }
+
+        /* ============================================================
+           LAYOUT PRINCIPAL
+        ============================================================ */
+        body {
+            background: var(--bg-page);
+            color: var(--txt-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 2rem 1rem;
+            padding-left: max(1rem, env(safe-area-inset-left));
+            padding-right: max(1rem, env(safe-area-inset-right));
+            padding-bottom: max(1rem, env(safe-area-inset-bottom));
+            font-family: ui-sans-serif, system-ui, sans-serif;
+            overflow-x: hidden;
+            margin: 0;
+        }
+        #app {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.25rem;
+            width: 100%;
+            max-width: min(1000px, 100vw);
+        }
+        #calc-wrapper {
+            flex: 0 0 360px;
+            width: 360px;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-panel);
+            border-radius: 1.75rem;
+            padding: 1.25rem;
+            box-shadow: 0 25px 50px var(--shadow-panel);
+            display: flex;
+            flex-direction: column;
+            transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+        }
+        #history-panel {
+            flex: 1 1 0;
+            min-width: 0;
+            background: var(--bg-panel);
+            border: 1px solid var(--border-panel);
+            border-radius: 1.75rem;
+            padding: 1.25rem;
+            box-shadow: 0 25px 50px var(--shadow-panel);
+            display: flex;
+            flex-direction: column;
+            transition: background 0.3s, border-color 0.3s;
+        }
+        @media (max-width: 700px) {
+            #app { flex-direction: column; }
+            #calc-wrapper { flex: none; width: 100%; max-width: 400px; align-self: center; }
+            #history-panel { width: 100%; }
+        }
+
+        /* ============================================================
+           DENSIDADE
+        ============================================================ */
+        :root { --gap: 0.4rem; }
+        [data-density="compact"]     { --gap: 0.22rem; }
+        [data-density="comfortable"] { --gap: 0.55rem; }
+
+        button, input, select { touch-action: manipulation; }
+
+        /* RIPPLE + PRESS */
+        .btn-ripple { position: relative; overflow: hidden; }
+        .btn-ripple::after {
+            content:''; position:absolute; inset:0; border-radius:inherit;
+            background: radial-gradient(circle, rgba(255,255,255,0.32) 0%, transparent 70%);
+            opacity:0; transform:scale(0); pointer-events:none;
+            transition: transform 0s, opacity 0s;
+        }
+        .btn-ripple:active::after {
+            transform:scale(2.5); opacity:1;
+            transition: transform 0.18s ease-out, opacity 0.18s ease-out;
+        }
+
+        .density-btn { transition: all 0.18s; cursor: pointer; }
+        .density-btn:active { transform:scale(0.90); }
+        .density-btn.active { background-color:var(--density-active-bg); color:var(--density-active-txt); border-color:var(--density-active-brd); }
+
+        /* ============================================================
+           MARCA / TÍTULO
+        ============================================================ */
+        .brand { display:flex; align-items:baseline; gap:0.5rem; margin-bottom:0.85rem; }
+        .brand h1 { font-size:1.4rem; font-weight:800; letter-spacing:-0.02em; margin:0; color:var(--txt-primary); }
+        .brand .dot { color:var(--tab-indicator); }
+        .brand span { font-size:0.64rem; color:var(--txt-muted); font-weight:600; text-transform:uppercase; letter-spacing:0.08em; }
+
+        /* ============================================================
+           ABAS DE MODO
+        ============================================================ */
+        .mode-tabs { display:flex; gap:0.4rem; margin-bottom:0.85rem; }
+        .mode-tab {
+            flex:1; padding:0.5rem 0.5rem; font-size:0.76rem; font-weight:600;
+            border-radius:0.55rem; border:1px solid var(--tab-brd); color:var(--tab-txt);
+            transition:all 0.18s; cursor:pointer; background:transparent;
+            position:relative; overflow:hidden; white-space:nowrap;
+        }
+        .mode-tab:active { transform:scale(0.96); }
+        .mode-tab.active { background:var(--tab-active-bg); color:var(--tab-active-txt); border-color:var(--tab-active-brd); }
+        .mode-tab.active::after {
+            content:''; position:absolute; bottom:0; left:22%; right:22%; height:2px;
+            background:var(--tab-indicator); border-radius:2px 2px 0 0;
+        }
+
+        /* ============================================================
+           SELETOR DE TEMA — switch
+        ============================================================ */
+        .theme-toggle-wrap { display:flex; align-items:center; justify-content:center; gap:0.5rem; margin-bottom:0.75rem; }
+        .theme-toggle-label {
+            font-size:0.7rem; font-weight:700; letter-spacing:0.05em; text-transform:uppercase;
+            color:var(--txt-muted); transition:color 0.25s; min-width:2.8rem; user-select:none;
+        }
+        .theme-toggle-label.active-label { color:var(--txt-secondary); }
+        .theme-switch { position:relative; width:3.2rem; height:1.75rem; flex-shrink:0; cursor:pointer; }
+        .theme-switch input { opacity:0; width:0; height:0; position:absolute; }
+        .theme-track { position:absolute; inset:0; border-radius:999px; background:#334155; transition:background 0.28s ease; border:1px solid #475569; }
+        .theme-switch input:checked ~ .theme-track { background:#93C5FD; border-color:#60A5FA; }
+        .theme-track::after {
+            content:''; position:absolute; top:3px; left:3px; width:1.2rem; height:1.2rem; border-radius:50%;
+            background:#fff; box-shadow:0 1px 4px rgba(0,0,0,0.35);
+            transition:transform 0.28s cubic-bezier(.4,0,.2,1), background 0.28s;
+        }
+        .theme-switch input:checked ~ .theme-track::after { transform:translateX(1.45rem); background:#1D4ED8; }
+        .theme-icon { position:absolute; top:50%; transform:translateY(-50%); font-size:0.7rem; line-height:1; pointer-events:none; transition:opacity 0.2s; }
+        .theme-icon-moon { left:0.32rem; opacity:1; }
+        .theme-icon-sun  { right:0.28rem; opacity:0; }
+        .theme-switch input:checked ~ .theme-track .theme-icon-moon { opacity:0; }
+        .theme-switch input:checked ~ .theme-track .theme-icon-sun  { opacity:1; }
+
+        /* ============================================================
+           PRESETS DE DISTÂNCIA
+        ============================================================ */
+        .presets { display:flex; gap:0.35rem; margin-bottom:0.85rem; flex-wrap:wrap; }
+        .preset {
+            flex:1; padding:0.45rem 0.2rem; font-size:0.72rem; font-weight:600;
+            border-radius:0.5rem; border:1px solid var(--preset-brd); color:var(--preset-txt);
+            background:transparent; cursor:pointer; white-space:nowrap; transition:all 0.15s;
+        }
+        .preset:hover { border-color:var(--preset-hov-brd); color:var(--preset-hov-txt); }
+        .preset:active { transform:scale(0.94); }
+
+        /* ============================================================
+           MÓDULO DE CAMPOS
+        ============================================================ */
+        .op-field {
+            display:flex; flex-direction:column; gap:0.2rem; padding:0.6rem 0.8rem;
+            border-bottom:1px solid var(--op-field-brd); transition: background 0.12s;
+        }
+        .op-field:last-child { border-bottom:none; }
+        .op-field label { font-size:0.65rem; font-weight:700; color:var(--txt-muted); text-transform:uppercase; letter-spacing:0.06em; }
+        .op-field input {
+            background:transparent; border:none; outline:none;
+            color:var(--txt-secondary); font-size:1rem; font-weight:500; width:100%; padding:0;
+        }
+        .op-field input::placeholder { color:var(--op-placeholder); }
+        .op-field input:focus { color:var(--op-editable-inp); }
+        .op-field.editable { background:var(--op-editable-bg); border-left:2px solid var(--op-editable-brd); }
+        .op-field.editable label { color:var(--op-editable-lbl); }
+        .op-field.editable input { color:var(--op-editable-inp); }
+        .op-field.result-field { background:var(--op-result-bg); border-left:2px solid var(--op-result-brd); }
+        .op-field.result-field label { color:var(--op-result-lbl); }
+        .result-value { font-size:1.05rem; font-weight:700; color:var(--op-result-val); min-height:1.3rem; }
+        .op-field .sub-value { font-size:0.7rem; color:var(--op-subval); margin-top:0.05rem; }
+        .op-section-label {
+            font-size:0.6rem; font-weight:700; color:var(--op-section-txt); text-transform:uppercase;
+            letter-spacing:0.08em; padding:0.45rem 0.8rem 0.15rem; background:var(--op-section-bg);
+        }
+
+        /* sub-seletor Ritmo / Velocidade */
+        .rate-seg { display:flex; gap:0.35rem; padding:0.5rem 0.8rem 0.2rem; }
+        .calc-mode-btn {
+            flex:1; padding:0.35rem 0.4rem; font-size:0.66rem; font-weight:600;
+            border-radius:0.45rem; border:1px solid var(--op-mode-brd); color:var(--op-mode-txt);
+            background:transparent; transition:all 0.18s; cursor:pointer; white-space:nowrap;
+        }
+        .calc-mode-btn:active { transform:scale(0.93); }
+        .calc-mode-btn.active { background:var(--op-mode-act-bg); color:var(--op-mode-act-txt); border-color:var(--op-mode-act-brd); }
+
+        .op-calc-btn {
+            width:100%; padding:0.7rem; font-size:0.88rem; font-weight:700;
+            border-radius:0.7rem; border:none; cursor:pointer;
+            background:linear-gradient(135deg,#4f46e5,#6366f1); color:white;
+            transition:all 0.15s; box-shadow:0 4px 15px rgba(99,102,241,.3);
+        }
+        .op-calc-btn:hover { filter:brightness(1.1); transform:translateY(-1px); }
+        .op-calc-btn:active { transform:scale(0.96); box-shadow:0 0 0 3px rgba(99,102,241,.5); }
+        .op-clear-btn {
+            width:100%; padding:0.4rem; font-size:0.72rem; font-weight:600;
+            border-radius:0.55rem; border:1px solid var(--op-clear-brd); cursor:pointer;
+            background:transparent; color:var(--op-clear-txt); transition:all 0.12s;
+        }
+        .op-clear-btn:hover { border-color:#ef4444; color:#f87171; background:rgba(239,68,68,.07); }
+        .op-clear-btn:active { transform:scale(0.96); }
+
+        @keyframes resultPop { from{opacity:0;transform:translateY(3px)} to{opacity:1;transform:none} }
+        .result-animate { animation:resultPop 0.22s ease-out; }
+        .op-error { color:#f87171 !important; font-size:0.82rem !important; font-weight:600 !important; }
+
+        /* ============================================================
+           HISTÓRICO
+        ============================================================ */
+        #history-list li { word-break: break-word; }
+        #history-list { -webkit-overflow-scrolling: touch; }
+        .hist-action-btn {
+            display:flex; align-items:center; justify-content:center; gap:0.4rem;
+            background:var(--hist-btn-bg); border:1px solid var(--hist-btn-brd);
+            color:var(--hist-btn-txt); border-radius:0.5rem; padding:0.5rem 0.75rem;
+            font-size:0.75rem; font-weight:600; cursor:pointer; transition:all 0.15s; white-space:nowrap;
+        }
+        .hist-action-btn:hover { background:var(--hist-btn-hov); color:var(--hist-math); }
+        .hist-action-btn:active { transform:scale(0.95); }
+
+        #version-badge {
+            text-align:center; font-size:0.62rem; font-weight:600; letter-spacing:0.06em;
+            color:var(--txt-subtle); padding:0.35rem 0; margin-top:0.5rem; opacity:0.7; user-select:none;
+        }
+        .flex-row { display:flex; }
+    </style>
+</head>
+<body>
+
+<div id="app">
+
+    <!-- ================================================================
+         CALCULADORA DE RITMO
+    ================================================================ -->
+    <div id="calc-wrapper" data-density="standard">
+
+        <div class="brand">
+            <h1>S<span class="dot">_</span>RUN</h1>
+            <span>calculadora de ritmo</span>
+        </div>
+
+        <!-- Seletor de tema -->
+        <div class="theme-toggle-wrap">
+            <span class="theme-toggle-label" id="lbl-night">NOITE</span>
+            <label class="theme-switch" title="Alternar tema">
+                <input type="checkbox" id="theme-toggle" onchange="setTheme(this.checked ? 'day' : 'night')">
+                <div class="theme-track">
+                    <span class="theme-icon theme-icon-moon">🌙</span>
+                    <span class="theme-icon theme-icon-sun">☀️</span>
+                </div>
+            </label>
+            <span class="theme-toggle-label" id="lbl-day">DIA</span>
+        </div>
+
+        <!-- Abas de modo -->
+        <div class="mode-tabs">
+            <button class="mode-tab active btn-ripple" id="tab-ritmo" onclick="setMode('ritmo')">🏃 Ritmo</button>
+            <button class="mode-tab btn-ripple" id="tab-tempo" onclick="setMode('tempo')">⏱ Tempo</button>
+            <button class="mode-tab btn-ripple" id="tab-dist" onclick="setMode('dist')">📏 Distância</button>
+        </div>
+
+        <!-- Densidade -->
+        <div class="flex-row" style="align-items:center;gap:0.4rem;margin-bottom:0.7rem">
+            <span style="font-size:0.65rem;color:var(--txt-muted);font-weight:600;white-space:nowrap">Layout:</span>
+            <button onclick="setDensity('compact')" id="density-compact" class="density-btn btn-ripple" style="flex:1;padding:0.25rem;font-size:0.72rem;font-weight:600;border-radius:0.5rem;border:1px solid var(--density-brd);color:var(--density-txt);background:transparent">Compacto</button>
+            <button onclick="setDensity('standard')" id="density-standard" class="density-btn btn-ripple active" style="flex:1;padding:0.25rem;font-size:0.72rem;font-weight:600;border-radius:0.5rem;border:1px solid var(--density-brd);color:var(--density-txt);background:transparent">Padrão</button>
+            <button onclick="setDensity('comfortable')" id="density-comfortable" class="density-btn btn-ripple" style="flex:1;padding:0.25rem;font-size:0.72rem;font-weight:600;border-radius:0.5rem;border:1px solid var(--density-brd);color:var(--density-txt);background:transparent">Conf.</button>
+        </div>
+
+        <!-- Presets de distância -->
+        <div class="presets" id="presets-row">
+            <button class="preset btn-ripple" onclick="setDist(5)">5 km</button>
+            <button class="preset btn-ripple" onclick="setDist(10)">10 km</button>
+            <button class="preset btn-ripple" onclick="setDist(21.0975)">21k</button>
+            <button class="preset btn-ripple" onclick="setDist(42.195)">42k</button>
+        </div>
+
+        <!-- Campos -->
+        <div class="rounded flex-row" style="flex-direction:column;overflow:hidden;border-radius:0.9rem;background:var(--bg-panel-inner);border:1px solid var(--border-inner);margin-bottom:0.85rem">
+
+            <div class="op-section-label">Entrada</div>
+
+            <div class="op-field editable" id="field-dist">
+                <label>Distância (km)</label>
+                <input type="number" id="i-dist" placeholder="Ex: 10" step="any" min="0" inputmode="decimal" oninput="liveCalc()">
+            </div>
+
+            <div class="op-field editable" id="field-time">
+                <label>Tempo (hh:mm:ss)</label>
+                <input type="text" id="i-time" placeholder="Ex: 00:52:30" inputmode="numeric" oninput="liveCalc()">
+            </div>
+
+            <!-- Seletor Ritmo / Velocidade (modos Tempo e Distância) -->
+            <div id="rate-block" style="display:none">
+                <div class="rate-seg">
+                    <button class="calc-mode-btn active btn-ripple" id="rate-pace" onclick="setRate('pace')">Ritmo (min/km)</button>
+                    <button class="calc-mode-btn btn-ripple" id="rate-vel" onclick="setRate('vel')">Velocidade (km/h)</button>
+                </div>
+                <div class="op-field editable" id="field-pace">
+                    <label>Ritmo (min:seg por km)</label>
+                    <input type="text" id="i-pace" placeholder="Ex: 5:15" inputmode="numeric" oninput="liveCalc()">
+                </div>
+                <div class="op-field editable" id="field-vel" style="display:none">
+                    <label>Velocidade (km/h)</label>
+                    <input type="number" id="i-vel" placeholder="Ex: 11,4" step="any" min="0" inputmode="decimal" oninput="liveCalc()">
+                </div>
+            </div>
+
+            <div class="op-section-label">Resultado</div>
+
+            <div class="op-field result-field" id="res-pace-box">
+                <label>Ritmo</label>
+                <div class="result-value" id="res-pace">—</div>
+            </div>
+            <div class="op-field result-field" id="res-vel-box">
+                <label>Velocidade</label>
+                <div class="result-value" id="res-vel">—</div>
+            </div>
+            <div class="op-field result-field" id="res-time-box" style="display:none">
+                <label>Tempo total</label>
+                <div class="result-value" id="res-time">—</div>
+            </div>
+            <div class="op-field result-field" id="res-dist-box" style="display:none">
+                <label>Distância</label>
+                <div class="result-value" id="res-dist">—</div>
+            </div>
+        </div>
+
+        <div class="flex-row" style="flex-direction:column;gap:0.5rem">
+            <button class="op-calc-btn btn-ripple" onclick="calcular()">Calcular e salvar</button>
+            <button class="op-clear-btn btn-ripple" onclick="limparCampos()">Limpar campos</button>
+        </div>
+
+        <div id="version-badge">S_RUN v<span id="app-version">—</span></div>
+
+    </div><!-- /calc-wrapper -->
+
+    <!-- ================================================================
+         HISTÓRICO
+    ================================================================ -->
+    <div id="history-panel">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.85rem;flex-shrink:0">
+            <h2 style="font-size:0.95rem;font-weight:700;color:var(--hist-title);letter-spacing:-0.01em;margin:0">Histórico</h2>
+            <div style="display:flex;gap:0.5rem;align-items:center">
+                <button onclick="triggerImport()" title="Importar" style="padding:0.35rem;border-radius:0.45rem;background:transparent;border:none;color:var(--hist-import-c);cursor:pointer;display:flex">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                        <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+                    </svg>
+                </button>
+                <button onclick="clearHistory()" title="Limpar tudo" style="padding:0.35rem;border-radius:0.45rem;background:transparent;border:none;color:var(--hist-del-c);cursor:pointer;display:flex">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <input type="file" id="import-file-input" accept=".txt" style="display:none" onchange="handleFileImport(event)">
+
+        <ul id="history-list" class="scrollbar-custom" style="flex:1;overflow-y:auto;padding-right:0.4rem;margin:0 0 0.85rem;min-height:0;list-style:none"></ul>
+
+        <div style="display:flex;gap:0.5rem;flex-shrink:0;flex-wrap:wrap">
+            <button onclick="downloadHistory(false)" class="hist-action-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M5.5 7a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
+                    <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2.5a1 1 0 0 0 1 1H13v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+                </svg>
+                TXT Normal
+            </button>
+            <button onclick="downloadHistory(true)" class="hist-action-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M10 7v1.076c.54.166 1 .597 1 1.224v2.4c0 .816-.781 1.3-1.5 1.3h-3c-.719 0-1.5-.484-1.5-1.3V9.3c0-.627.46-1.058 1-1.224V7a2 2 0 1 1 4 0zM7 7v1h2V7a1 1 0 0 0-2 0zM6 9.3v2.4c0 .046.042.1.1.1h2.8c.058 0 .1-.054.1-.1V9.3c0-.046-.042-.1-.1-.1H6.1c-.058 0-.1.054-.1.1z"/>
+                    <path d="M9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.5L9.5 0zm0 1v2.5a1 1 0 0 0 1 1H13v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+                </svg>
+                TXT Cripto
+            </button>
+        </div>
+    </div><!-- /history-panel -->
+
+</div><!-- /app -->
+
+<script>
+// ====================================================================
+// SINCRONIZA ALTURA DO HISTÓRICO COM A CALCULADORA
+// ====================================================================
+function syncHistoryHeight() {
+    const calc = document.getElementById('calc-wrapper');
+    const hist = document.getElementById('history-panel');
+    if (window.innerWidth > 700) {
+        hist.style.height = calc.offsetHeight + 'px';
+        hist.style.minHeight = '300px';
+    } else {
+        hist.style.height = '';
+        hist.style.minHeight = '280px';
+    }
+}
+window.addEventListener('load', syncHistoryHeight);
+window.addEventListener('resize', syncHistoryHeight);
+if (window.ResizeObserver) {
+    new ResizeObserver(syncHistoryHeight).observe(document.getElementById('calc-wrapper'));
+}
+
+function getEl(id){ return document.getElementById(id); }
+
+// ====================================================================
+// MODO E ENTRADA DE RITMO/VELOCIDADE
+// ====================================================================
+let mode = 'ritmo';   // ritmo | tempo | dist
+let rate = 'pace';    // pace | vel
+
+function setMode(m){
+    mode = m; rate = 'pace';
+    ['ritmo','tempo','dist'].forEach(x => getEl('tab-'+x).classList.toggle('active', x===m));
+    const show = (id,s) => { const e = getEl(id); if (e) e.style.display = s ? '' : 'none'; };
+
+    // Entradas
+    show('field-dist',  m==='ritmo' || m==='tempo');
+    show('field-time',  m==='ritmo' || m==='dist');
+    show('rate-block',  m==='tempo' || m==='dist');
+    // Presets de distância só fazem sentido quando distância é entrada
+    show('presets-row', m==='ritmo' || m==='tempo');
+
+    // Resultados
+    show('res-pace-box', m==='ritmo');
+    show('res-vel-box',  m==='ritmo');
+    show('res-time-box', m==='tempo');
+    show('res-dist-box', m==='dist');
+
+    setRate('pace');
+    limparResultados();
+    setTimeout(syncHistoryHeight, 50);
+}
+
+function setRate(r){
+    rate = r;
+    getEl('rate-pace').classList.toggle('active', r==='pace');
+    getEl('rate-vel').classList.toggle('active', r==='vel');
+    getEl('field-pace').style.display = r==='pace' ? '' : 'none';
+    getEl('field-vel').style.display  = r==='vel'  ? '' : 'none';
+    liveCalc();
+    setTimeout(syncHistoryHeight, 50);
+}
+
+function setDist(km){ getEl('i-dist').value = String(km).replace('.', ','); liveCalc(); }
+
+// ====================================================================
+// PARSE / FORMATAÇÃO
+// ====================================================================
+function toNum(v){ return parseFloat(String(v).replace(',', '.')); }
+function parseTime(s){               // "hh:mm:ss" | "mm:ss" | "ss" -> segundos
+    if(!s) return NaN;
+    const p = String(s).trim().split(':').map(x => parseInt(x, 10));
+    if(p.some(isNaN)) return NaN;
+    if(p.length===3) return p[0]*3600 + p[1]*60 + p[2];
+    if(p.length===2) return p[0]*60 + p[1];
+    if(p.length===1) return p[0];
+    return NaN;
+}
+function fmtTime(sec){
+    sec = Math.round(sec);
+    const h = Math.floor(sec/3600), m = Math.floor((sec%3600)/60), s = sec%60;
+    const p = n => String(n).padStart(2,'0');
+    return h>0 ? `${p(h)}:${p(m)}:${p(s)}` : `${p(m)}:${p(s)}`;
+}
+function fmtPace(secPerKm){
+    const m = Math.floor(secPerKm/60), s = Math.round(secPerKm%60);
+    let mm = m, ss = s;
+    if(ss === 60){ mm += 1; ss = 0; }
+    return `${mm}:${String(ss).padStart(2,'0')} min/km`;
+}
+function fmtNum(n, d=2){ return n.toLocaleString('pt-BR', {minimumFractionDigits:0, maximumFractionDigits:d}); }
+
+function rateSecPerKm(){          // seg/km a partir do input ativo
+    if(rate==='pace') return parseTime(getEl('i-pace').value);
+    const kmh = toNum(getEl('i-vel').value);
+    return (kmh>0) ? 3600/kmh : NaN;
+}
+function rateLabel(spk){
+    return rate==='pace' ? fmtPace(spk) : (fmtNum(3600/spk,2)+' km/h');
+}
+
+// ====================================================================
+// CÁLCULO
+// ====================================================================
+function setRes(id, val){
+    const el = getEl(id); if(!el) return;
+    el.textContent = val; el.className = 'result-value result-animate';
+    setTimeout(() => el.classList.remove('result-animate'), 300);
+}
+function setErr(id, msg){
+    const el = getEl(id); if(!el) return;
+    el.textContent = msg; el.className = 'result-value op-error';
+}
+function limparResultados(){
+    ['res-pace','res-vel','res-time','res-dist'].forEach(id => {
+        const el = getEl(id); if(el){ el.textContent = '—'; el.className = 'result-value'; }
+    });
+}
+
+function liveCalc(){ calcular(true); }
+
+function calcular(silent = false){
+    const dist = toNum(getEl('i-dist').value);
+    const timeSec = parseTime(getEl('i-time').value);
+    let line = '';
+
+    if(mode === 'ritmo'){
+        if(!(dist>0)){ if(!silent) setErr('res-pace','Informe a distância'); return; }
+        if(!(timeSec>0)){ if(!silent) setErr('res-pace','Informe o tempo'); return; }
+        const spk = timeSec/dist;
+        const kmh = dist/(timeSec/3600);
+        setRes('res-pace', fmtPace(spk));
+        setRes('res-vel', fmtNum(kmh,2)+' km/h');
+        line = `🏃 ${fmtNum(dist,3)} km em ${fmtTime(timeSec)} → ${fmtPace(spk)} · ${fmtNum(kmh,2)} km/h`;
+
+    } else if(mode === 'tempo'){
+        const spk = rateSecPerKm();
+        if(!(dist>0)){ if(!silent) setErr('res-time','Informe a distância'); return; }
+        if(!(spk>0)){ if(!silent) setErr('res-time', rate==='pace'?'Informe o ritmo':'Informe a velocidade'); return; }
+        const t = dist*spk;
+        setRes('res-time', fmtTime(t));
+        line = `⏱ ${fmtNum(dist,3)} km a ${rateLabel(spk)} → ${fmtTime(t)}`;
+
+    } else if(mode === 'dist'){
+        const spk = rateSecPerKm();
+        if(!(timeSec>0)){ if(!silent) setErr('res-dist','Informe o tempo'); return; }
+        if(!(spk>0)){ if(!silent) setErr('res-dist', rate==='pace'?'Informe o ritmo':'Informe a velocidade'); return; }
+        const d = timeSec/spk;
+        setRes('res-dist', fmtNum(d,2)+' km');
+        line = `📏 ${fmtTime(timeSec)} a ${rateLabel(spk)} → ${fmtNum(d,2)} km`;
+    }
+
+    if(!silent && line) addToHistory(line);
+}
+
+function limparCampos(){
+    ['i-dist','i-time','i-pace','i-vel'].forEach(id => { const e = getEl(id); if(e) e.value=''; });
+    limparResultados();
+}
+
+// ====================================================================
+// DENSIDADE
+// ====================================================================
+function setDensity(m, save = true){
+    getEl('calc-wrapper').setAttribute('data-density', m);
+    document.querySelectorAll('.density-btn').forEach(b => b.classList.remove('active'));
+    const btn = getEl('density-'+m); if(btn) btn.classList.add('active');
+    if(save) localStorage.setItem('srun_density', m);
+    setTimeout(syncHistoryHeight, 50);
+}
+
+// ====================================================================
+// HISTÓRICO
+// ====================================================================
+const historyListElement = getEl('history-list');
+let historyEntries = [];
+
+function addToHistory(expr){
+    historyEntries.push(`[${new Date().toLocaleString('pt-BR')}] ${expr}`);
+    localStorage.setItem('srun_history', JSON.stringify(historyEntries));
+    updateHistoryUI();
+}
+function updateHistoryUI(){
+    historyListElement.innerHTML = '';
+    if(!historyEntries.length){
+        historyListElement.innerHTML = '<li style="color:var(--hist-empty);font-size:0.82rem;text-align:center;margin-top:2rem;font-style:italic;list-style:none">Nenhum cálculo no histórico.</li>';
+        return;
+    }
+    [...historyEntries].reverse().forEach(entry => {
+        const li = document.createElement('li');
+        li.style.cssText = 'border-bottom:1px solid var(--hist-item-brd);padding-bottom:0.6rem;margin-bottom:0.5rem;list-style:none';
+        const si = entry.indexOf(']')+1;
+        const time = entry.substring(0,si), math = entry.substring(si);
+        li.innerHTML = `<span style="color:var(--hist-time);font-size:0.68rem;display:block;margin-bottom:0.2rem;font-weight:600">${time}</span>`
+                     + `<span style="color:var(--hist-math);font-size:0.82rem;font-weight:600;word-break:break-word">${math}</span>`;
+        historyListElement.appendChild(li);
+    });
+}
+function clearHistory(){
+    if(historyEntries.length && !confirm('Apagar todo o histórico?')) return;
+    historyEntries = []; localStorage.removeItem('srun_history'); updateHistoryUI();
+}
+
+// ====================================================================
+// EXPORTAÇÃO / IMPORTAÇÃO
+// ====================================================================
+function encryptText(t){ try{ return btoa(unescape(encodeURIComponent(t))).split('').reverse().join(''); }catch(e){ return 'Erro'; } }
+function decryptText(t){ try{ return decodeURIComponent(escape(atob(t.split('').reverse().join('')))); }catch(e){ return null; } }
+function downloadHistory(enc){
+    if(!historyEntries.length){ alert('Histórico vazio!'); return; }
+    let c = historyEntries.join('\n'), fn = 'historico_s-run.txt';
+    if(enc){ c = encryptText(c); fn = 'historico_s-run_cripto.txt'; }
+    const b = new Blob([c], {type:'text/plain;charset=utf-8'});
+    const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = fn;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(a.href);
+}
+function triggerImport(){ getEl('import-file-input').click(); }
+function handleFileImport(event){
+    const file = event.target.files[0]; if(!file) return;
+    const r = new FileReader();
+    r.onload = function(e){
+        const c = e.target.result; if(!c) return;
+        let lines = [];
+        if(c.trim().startsWith('[')){ lines = c.split('\n').filter(l => l.trim()); }
+        else { const d = decryptText(c); lines = (d && d.trim().startsWith('[') ? d : c).split('\n').filter(l => l.trim()); }
+        let added = 0;
+        lines.forEach(l => { if(!historyEntries.includes(l)){ historyEntries.push(l); added++; } });
+        if(added>0){ localStorage.setItem('srun_history', JSON.stringify(historyEntries)); updateHistoryUI(); setTimeout(() => alert(`${added} registro(s) importado(s)!`), 50); }
+        else alert('Nenhum registro novo encontrado.');
+    };
+    r.readAsText(file); event.target.value = '';
+}
+
+// ====================================================================
+// TEMA
+// ====================================================================
+function setTheme(theme, save = true){
+    document.documentElement.setAttribute('data-theme', theme);
+    const toggle = getEl('theme-toggle'); if(toggle) toggle.checked = (theme==='day');
+    const lblNight = getEl('lbl-night'), lblDay = getEl('lbl-day');
+    if(lblNight) lblNight.classList.toggle('active-label', theme==='night');
+    if(lblDay)   lblDay.classList.toggle('active-label', theme==='day');
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if(meta) meta.content = theme==='day' ? '#E8F0F7' : '#020617';
+    if(save) localStorage.setItem('srun_theme', theme);
+}
+
+// ====================================================================
+// TECLADO — Enter calcula e salva
+// ====================================================================
+document.addEventListener('keydown', e => {
+    if(e.key === 'Enter'){ e.preventDefault(); calcular(); }
+});
+
+// ====================================================================
+// INIT
+// ====================================================================
+function init(){
+    const sh = localStorage.getItem('srun_history');
+    if(sh){ try { historyEntries = JSON.parse(sh); } catch(e){ historyEntries = []; } }
+    setDensity(localStorage.getItem('srun_density') || 'standard', false);
+    setTheme(localStorage.getItem('srun_theme') || 'night', false);
+    setMode('ritmo');
+    updateHistoryUI();
+    setTimeout(syncHistoryHeight, 80);
+}
+init();
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').then(reg => {
+            function askVersion(sw){ sw.postMessage({ type: 'GET_VERSION' }); }
+            navigator.serviceWorker.addEventListener('message', e => {
+                if(e.data && e.data.type === 'VERSION'){
+                    const el = document.getElementById('app-version');
+                    if(el) el.textContent = e.data.version;
+                }
+            });
+            if(reg.active){ askVersion(reg.active); }
+            else {
+                const sw = reg.installing || reg.waiting;
+                if(sw){ sw.addEventListener('statechange', () => { if(sw.state==='activated') askVersion(sw); }); }
+            }
+        }).catch(err => console.warn('SW:', err));
+    });
+}
+</script>
+</body>
+</html>
